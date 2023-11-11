@@ -7,12 +7,12 @@ const App=() =>{
   return (
     <div >
     <Router>
-    <Header/>
+   
       <Routes>
         <Route path="/" element={ <Home/>}/>
         <Route path="/login" element={<Login/>} />
        </Routes>
-      <Footer/>
+     
     </Router>
     
    
