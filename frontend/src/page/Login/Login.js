@@ -14,7 +14,7 @@ const Login = () => {
       Password : password
     }
     try{
-      const response = await fetch("http://localhost:5000/login",{
+      const response = await fetch("http://localhost:5005/login",{
       method : 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ const Login = () => {
       body: JSON.stringify(data)
     });
     const responseData = await response.json();
-    if(responseData) alert("Password matched !");
+    if(responseData) window.location.href ='/profile';
     else alert("Incorrect Password !")
     }catch(err){
       console.log(err);

@@ -6,7 +6,7 @@ import { DATABASE_URL } from './config.mjs';
 import cors from 'cors';
 
 const app = express();
-const PORT = 5000;
+const PORT = 5005;
 const salt = bcrypt.genSaltSync(10);
 const { Client } = pkg;
 const client = new Client({
