@@ -7,11 +7,32 @@ const Login = () => {
   const [registrationNumber, setRegistrationNumber] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async() => {
     // Implement your login logic here
-    console.log('Login clicked');
-    console.log('Registration Number:', registrationNumber);
-    console.log('Password:', password);
+    const data = {
+      Reg_no : registrationNumber,
+      Password : password
+    }
+    try{
+      const response = await fetch("http://localhost:5000/login",{
+      method : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    const responseData = await response.json();
+    if(responseData) alert("Password matched !");
+    else alert("Incorrect Password !")
+    }catch(err){
+      console.log(err);
+    }
+    
+    // if(responseData == true){
+      // window.location.href = "http://localhost:5000/";
+    // }
+    // alert( registrationNumber);
+    // console.log('Password:', password);
   };
 
   const handleForgotPassword = () => {
