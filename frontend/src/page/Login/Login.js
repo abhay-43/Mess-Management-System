@@ -1,7 +1,7 @@
 // Login.js
 
 import React, { useState } from 'react';
-import './Login.css';
+// import './Login.css';
 
 const Login = () => {
   const [registrationNumber, setRegistrationNumber] = useState('');

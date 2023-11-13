@@ -2,15 +2,23 @@ import express from 'express';
 import pkg from 'pg';
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
-import { DATABASE_URL } from './config.mjs';
+import nodemailer from 'nodemailer';
+import { DATABASE_URL, MAIL_KEY } from './config.mjs';
 import cors from 'cors';
 
 const app = express();
-const PORT = 5005;
+const PORT = 5000;
 const salt = bcrypt.genSaltSync(10);
 const { Client } = pkg;
 const client = new Client({
   connectionString: DATABASE_URL,
+});
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'mnnit.mms.2023@gmail.com',
+    pass: MAIL_KEY,
+  },
 });
 
 app.use(cors());
@@ -28,6 +36,8 @@ async function connectDB() {
 
 connectDB();
 
+
+//function for inserting student data from database
 async function insertSD(Reg_no, First_name, Last_name, Hostel, Password) {
 
   const select = `USE mms;`;
@@ -48,11 +58,10 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password) {
     console.log("Data stored in student Table !");
   } catch (err) {
     console.error(err);
-  } finally {
-    await client.end();
   }
 }
 
+//function for deleting student data from database
 async function deleteSD(Reg_no) {
 
     const select = `USE mms;`;
@@ -75,6 +84,7 @@ async function deleteSD(Reg_no) {
     }
   }
 
+  //function for fetching student data from database
   async function fetchSD(Parameter, Reg_no) {
 
     const select = `USE mms;`;
@@ -93,6 +103,13 @@ async function deleteSD(Reg_no) {
     } catch (err) {
       console.error(err);
     } 
+  }
+
+  //generate student email 
+  async function createSE(Reg_no){
+    const name = await fetchSD('first_name', Reg_no);
+    let email = `${name}.${Reg_no}` + '@mnnit.ac.in';
+    return email;
   }
 
 // insertSD('20214197', 'Aamir', 'Siddiqui', 'Malviya', '18042003');
@@ -121,6 +138,64 @@ app.get('/', async  function (req, res) {
     //
   });
   
+
+  function generateMail(To,OTP){
+    const mailOptions = {
+      from: 'MNNIT Mess',
+      to: To,
+      subject: 'OTP Verification',
+      html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+        .center{
+          text-align: center;
+          align-items: center;
+          align-self: center;
+          align-content: center;
+        }
+        </style>
+      </head>
+      <body>
+          <h2 class="center">OTP verification for forget Password</h2>
+          <p>
+          Please note that the <b>OTP</b> is valid for a limited time and should be used immediately to ensure successful verification. 
+          In case you do not complete the verification within the specified time, you may need to request a new <b>OTP</b>.
+          </p>
+          <h2 class="center">${OTP}</h2>
+          <p>
+          If you have any questions or encounter any difficulties during the process, please do
+           not hesitate to reach out to our support team at mnnit.mess.2023@gmail.com.
+          </p>
+      </body>
+      </html>
+       `,
+    };
+    
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log('Error:', error);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
+  }
+
+async function sendMail(Reg_no){
+  try{
+    const To = await createSE(Reg_no);
+    let OTP = Math.floor((Math.random() * 999999));
+    generateMail(To,OTP);
+  }catch(err){
+    console.log(err);
+  }
+}
+// sendMail('20214197');
+
+
+
+
 app.listen(PORT, function () {
   console.log(`Server listening on port ${PORT}...`);
 });
