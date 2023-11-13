@@ -27,17 +27,11 @@ const Login = () => {
       body: JSON.stringify(data)
     });
     const responseData = await response.json();
-    if(responseData) window.location.href ='/profile';
+    if(responseData.success) window.location.href ='/profile';
     else alert("Incorrect Password !")
     }catch(err){
       console.log(err);
     }
-    
-    // if(responseData == true){
-      // window.location.href = "http://localhost:5000/";
-    // }
-    // alert( registrationNumber);
-    // console.log('Password:', password);
   };
 
   const handleForgotPassword = () => {
