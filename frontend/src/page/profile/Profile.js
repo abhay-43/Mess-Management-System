@@ -1,11 +1,16 @@
 import React from 'react'
 
+import Footer from '../../components/footer/Footer'
+import ProfileHeader from '../../components/header/ProfileHeader'
+
 const Profile = () => {
   return (
-    <div>
-      Hello Sir 
-      you have logged in susssssssssss
-    </div>
+   
+      <div>
+        <ProfileHeader/>
+        <Footer/>
+      </div>
+    
   )
 }
 
