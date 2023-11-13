@@ -21,16 +21,16 @@ const Header = () => {
    
     <div className='header'>
       <nav className="navbar container">
-        <div className="logo">
+        <div>
            
-            <h2>MMS</h2>
+            <h2><b>Mess Management_@MNNIT</b></h2>
         </div>
         <ul className={open? "nav-items active" :"nav-items"}>
-            <li >About</li>
-            <li>Contact</li>
-            <li onClick={handleClick1}>Student Login </li>
-            <li onClick={handleClick2}>Admin Login</li>
-            <li className="btn btn--nav-btn">View Plans</li>
+            <li className='link'> <a style={{ color: 'black' }}
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=mnnit.mms.2023@gmail.com"
+                  ><b>Contact us</b></a></li>
+            <li className='link' onClick={handleClick1}><b>Student Login</b></li>
+            <li className='link' onClick={handleClick2}><b>Admin Login</b></li>
         </ul>
         <div className='hamburger'>
             <img src={images.hamburger} alt='' onClick={handleClick}/>
