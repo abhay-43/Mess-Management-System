@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import ForgetModal from '../../modal/forgetModal/ForgetModal';
 import OtpModal from '../../modal/otpModal/OtpModal';
 
-// import './Login.css';
+import './login.scss';
 
 const Login = () => {
   const [optModalOpen,setOtpModalOpen]=useState(false);
@@ -46,10 +46,10 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className='login'>
     <div className="login-container">
       <div className="login-card">
-        <h2>Login</h2>
+        <h2>Student Login</h2>
         <div className="form-group">
           <label>Registration Number:</label>
           <input
