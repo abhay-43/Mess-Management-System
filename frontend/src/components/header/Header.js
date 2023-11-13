@@ -22,7 +22,8 @@ const Header = () => {
     <div className='header'>
       <nav className="navbar container">
         <div className="logo">
-            <img src={images.logo} alt="" />
+           
+            <h2>MMS</h2>
         </div>
         <ul className={open? "nav-items active" :"nav-items"}>
             <li >About</li>
