@@ -15,10 +15,16 @@ const ForgetModal = ({setOpenModal , setOtpModalOpen}) => {
           headers: {
             'Content-Type': 'application/json'
           },
+          credentials: 'include',
           body: JSON.stringify(data)
         });
-        alert("OTP has been sent to your institute email!");
-        setOtpModalOpen(true);
+        const  responseData = await response.json();
+        if(responseData){
+          alert("OTP has been sent to your institute email!");
+          setOtpModalOpen(true);
+        }else{
+          alert("Something went wrong! Try again...");
+        }
       }catch(err){
           console.log(err);
         }

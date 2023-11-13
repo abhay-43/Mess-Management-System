@@ -12,7 +12,8 @@ const PORT = 5005;
 const salt = bcrypt.genSaltSync(10);
 const fourHoursInMilliseconds = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 
-app.use(cors());
+
+app.use(cors({ credentials: true, origin: 'http://localhost:3000'}));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,7 +46,8 @@ app.post('/sendOTP', async  function (req, res) {
     const OTP = await sendMail(Reg_no);
     forgetReqUser[Reg_no] = OTP;
     const token = generateCookieToken(Reg_no);
-    res.cookie('id',token,{httpOnly : true, maxAge : fourHoursInMilliseconds});
+    res.cookie('id',token,{httpOnly: true, maxAge : fourHoursInMilliseconds, sameSite: 'None', secure: true });
+    res.send(true);
   }catch(err){
     console.log(err);
   }
@@ -55,7 +57,8 @@ app.post('/verifyOTP', async  function (req, res) {
   try{
     const {newPassword, OTP} = req.body;
     const token = req.cookies.id;
-    const Reg_no = decodeCookieToken(token);
+    console.log(token);
+    const Reg_no = await decodeCookieToken(token);
     const otpMatch = (forgetReqUser[Reg_no] == OTP);
     if(otpMatch){
       await changeSP(newPassword, Reg_no);
@@ -74,8 +77,6 @@ app.get('/', async  function (req, res) {
     res.send(obj);
     //
   });
-  
-// sendMail('20214279');
 
 app.listen(PORT, function () {
   console.log(`Server listening on port ${PORT}...`);
