@@ -18,7 +18,9 @@ const AdminLogin = () => {
        <div className='login'>
     <div className="login-container">
       <div className="login-card">
-        <h2>Admin Login</h2>
+        <h2 className='heading'>Admin Login</h2>
+        
+        <br/>
         <div className="form-group">
           <label>Email:</label>
           <input
