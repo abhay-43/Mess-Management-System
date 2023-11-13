@@ -4,7 +4,31 @@ const OtpModal = ({setOtpModalOpen}) => {
 
     const verify = async() => {
         setOtpModalOpen(false);
-        alert("verification initiated !");
+        if(confirmPassword === newPassword){
+          const data = {
+            newPassword : newPassword,
+            OTP : otp
+          }
+          try{
+            const response = await fetch("http://localhost:5005/verifyOTP",{
+            method : 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+          const responseData = await response.json();
+          if(responseData.success){
+            alert('Successfully changed password');
+          }else{
+            alert('OTP verification failed !')
+          }
+        }catch(err){
+            console.log(err);
+          }
+        }else{
+          alert('Passwords do not match!');
+        }
     };
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');

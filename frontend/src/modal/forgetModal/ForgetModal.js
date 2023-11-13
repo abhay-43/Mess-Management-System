@@ -6,8 +6,22 @@ const ForgetModal = ({setOpenModal , setOtpModalOpen}) => {
     // code for send OTP
     const sendOTP = async() => {
         setOpenModal(false);
-        alert("OTP sent!!!!");
-         setOtpModalOpen(true);
+        const data = {
+          Reg_no : regNumber,
+        }
+        try{
+          const response = await fetch("http://localhost:5005/sendOTP",{
+          method : 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        alert("OTP has been sent to your institute email!");
+        setOtpModalOpen(true);
+      }catch(err){
+          console.log(err);
+        }
     };
   return (
     <div className="modalBackground">

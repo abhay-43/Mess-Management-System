@@ -59,6 +59,7 @@ const transporter = nodemailer.createTransport({
       const To = await createSE(Reg_no);
       let OTP = Math.floor((Math.random() * 999999));
       generateMail(To,OTP);
+      return OTP;
     }catch(err){
       console.log(err);
     }
