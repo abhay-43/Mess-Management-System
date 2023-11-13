@@ -1,9 +1,14 @@
 // Login.js
 
 import React, { useState } from 'react';
+import ForgetModal from '../../modal/forgetModal/ForgetModal';
+import OtpModal from '../../modal/otpModal/OtpModal';
+
 // import './Login.css';
 
 const Login = () => {
+  const [optModalOpen,setOtpModalOpen]=useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [registrationNumber, setRegistrationNumber] = useState('');
   const [password, setPassword] = useState('');
 
@@ -35,6 +40,7 @@ const Login = () => {
   };
 
   return (
+    <div>
     <div className="login-container">
       <div className="login-card">
         <h2>Login</h2>
@@ -56,10 +62,18 @@ const Login = () => {
         </div>
         <div className="form-group">
           <button onClick={handleLogin}>Submit</button>
-          <button onClick={handleForgotPassword}>Forgot Password</button>
+          <button  className="openModalBtn"
+        onClick={() => {
+          setModalOpen(true);
+        }}>Forgot Password</button>
         </div>
       </div>
+    
     </div>
+    {modalOpen && <ForgetModal setOpenModal={setModalOpen} setOtpModalOpen={setOtpModalOpen}/>}
+    {optModalOpen && <OtpModal setOtpModalOpen={setOtpModalOpen} />}
+   </div>
+   
   );
 };
 

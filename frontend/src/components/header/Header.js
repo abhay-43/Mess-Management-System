@@ -13,6 +13,10 @@ const Header = () => {
   const handleClick1=e=>{
        navigate("/login")
   }
+  const handleClick2=e=>{
+    navigate("/adminLogin")
+  }
+
   return (
    
     <div className='header'>
@@ -23,7 +27,8 @@ const Header = () => {
         <ul className={open? "nav-items active" :"nav-items"}>
             <li >About</li>
             <li>Contact</li>
-            <li onClick={handleClick1}>Login </li>
+            <li onClick={handleClick1}>Student Login </li>
+            <li onClick={handleClick2}>Admin Login</li>
             <li className="btn btn--nav-btn">View Plans</li>
         </ul>
         <div className='hamburger'>
