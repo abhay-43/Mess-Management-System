@@ -18,10 +18,46 @@ const ProfileHeader = () => {
   }
 
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [regno, setRegno] = useState('');
 
-  const togglePopup = () => {
-    setPopupOpen(!isPopupOpen);
+  const togglePopup = async() => {
+    try{
+      const response = await fetch("http://localhost:5005/studentData",{
+          method : 'GET',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              credentials: 'include'
+        });
+        const responseData = await response.json();
+        if(responseData){
+          setName(responseData.name || '');
+          setRegno(responseData.regno || '');;
+        }
+        setPopupOpen(!isPopupOpen);
+    }catch(err){
+      console.log(err);
+    }
   };
+
+  const logout = async() => {
+    try{
+      const response = await fetch("http://localhost:5005/logout",{
+        method : 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+      });
+      const responseData = await response.json();
+      if (response){
+        window.location.href ="/";
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   return (
     
@@ -44,15 +80,15 @@ const ProfileHeader = () => {
           {isPopupOpen && (
             <div className="profile-popup">
                 <div className='popupHead'>
-                  <h3 className='profileName'><b>Aamir</b></h3>
-                  <br />
-                  <h3 className='profileRegNo'><b>20214197</b></h3>
+                {name && <h3><b>{name}</b></h3>}
+                <br />
+                {regno && <h3><b>{regno}</b></h3>}
                 </div>
                 <hr />
                 <div className='popupBottom'>
                   <h4 className='change-password'><b>Change Password</b></h4>
                   <br />
-                  <h4 className='logout'><b>Log Out</b></h4>
+                  <h4 className='logout' onClick={logout}><b>Log Out</b></h4>
                 </div>
                 
             </div>

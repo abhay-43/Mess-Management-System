@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 connectDB();
 
 
+const Users = {};
 //login router handler for students
 app.post('/login', async function (req, res) {
   try{
@@ -28,6 +29,12 @@ app.post('/login', async function (req, res) {
     const pass = await fetchSD('password',Reg_no);
     const passwordMatch = bcrypt.compareSync(Password, pass);
     if(passwordMatch){
+        // const role = await fetchSD('responsibility',Reg_no);
+        const token = generateCookieToken(Reg_no);
+        res.cookie('id',token,{httpOnly: true, maxAge : fourHoursInMilliseconds, sameSite: 'None', secure: true });
+        Users[req.cookies.id] = {
+          login : true
+        }
         res.json({success : true, error : false}); 
     }else{
         res.json({success : false, error : false});
@@ -75,12 +82,49 @@ app.post('/verifyOTP', async  function (req, res) {
   }
 });
 
-app.get('/', async  function (req, res) {
+
+
+app.get('/logout', async  function (req, res) {
+  try{
+    const id = req.cookies.id;
+    console.log(Users);
+    delete Users[id];
+    res.clearCookie('id');
+    res.send(true);
+  }catch(err){
+    console.log(err);
+  }
+});
+
+app.get('/studentData', async function (req, res) {
+  try{
+    const id = req.cookies.id;
+    // if(Users[id] === undefined) res.send(false);
+    //logic 
+    const regno = await decodeCookieToken(id);
+    const name = await fetchSD('first_name',regno);
+    res.json({
+      name : name,
+      regno : regno
+    });
+  }catch(err){
+    console.log(err);
+  }
+});
+
+app.get('/hostel', async  function (req, res) {
     // const obj = await fetchSD('first_name','20214279');
     // const obj = await insertSD('20214197','Aamir', 'Siddiqui','Malviya','18042003','Mess secretary');
     // res.send(obj);
     //
+    const id = req.cookies.id;
+    const regno = await decodeCookieToken(id);
+    const hostel = await fetchSD('hostel',regno);
+    console.log(hostel);
+    res.json({name : hostel});
   });
+
+
 
 app.listen(PORT, function () {
   console.log(`Server listening on port ${PORT}...`);

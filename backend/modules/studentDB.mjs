@@ -82,7 +82,8 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         const result = await client.query(query, [Reg_no]);
         return result.rows[0][Parameter];
       } catch (err) {
-        throw new DatabaseError("DATABASE ERROR :");
+        // throw new DatabaseError("DATABASE ERROR :");
+        console.log(err);
       } 
     }
 
