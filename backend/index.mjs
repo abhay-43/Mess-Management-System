@@ -20,10 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 connectDB();
 
-// insertSD('20214197', 'Aamir', 'Siddiqui', 'Malviya', '18042003');
-// deleteSD('20214197');
-// fetchSD('first_name','20214279');
 
+//login router handler for students
 app.post('/login', async function (req, res) {
   try{
     const {Reg_no, Password} = req.body;
@@ -39,6 +37,7 @@ app.post('/login', async function (req, res) {
   }
 });
 
+//request OTP router handler for students
 const forgetReqUser = {};
 app.post('/sendOTP', async  function (req, res) {
   try{
@@ -53,6 +52,7 @@ app.post('/sendOTP', async  function (req, res) {
   }
 });
 
+//verify OTP and update student password in database
 app.post('/verifyOTP', async  function (req, res) {
   try{
     const {newPassword, OTP} = req.body;
@@ -73,7 +73,8 @@ app.post('/verifyOTP', async  function (req, res) {
 });
 
 app.get('/', async  function (req, res) {
-    const obj = await fetchSD('first_name','20214279');
+    // const obj = await fetchSD('first_name','20214279');
+    const obj = await insertSD('20214006','Bhanu', 'Singh','Tandon','30042001');
     res.send(obj);
     //
   });
