@@ -1,0 +1,28 @@
+.scrollmenu {
+    display: flex;
+    overflow-x: auto;
+    background-color: #e989c87e;
+  }
+  
+  .item {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    padding: 14px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .item:hover {
+    background-color: skyblue;
+  }
+  
+  .item {
+    width: 400px; /* Adjust the width of the images as needed */
+    height: 400px; /* Adjust the height of the images as needed */
+    object-fit: cover;
+    border-radius: 8px; /* Add border-radius for rounded corners */
+    margin-right: 5px; /* Adjust spacing between images */
+    margin-left: 5px; /* Adjust spacing between images */
+  }
+  
