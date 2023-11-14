@@ -62,6 +62,7 @@ const transporter = nodemailer.createTransport({
       return OTP;
     }catch(err){
       console.log(err);
+      return undefined;
     }
   }
 

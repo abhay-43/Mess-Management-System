@@ -22,6 +22,8 @@ const ForgetModal = ({setOpenModal , setOtpModalOpen}) => {
         if(responseData){
           alert("OTP has been sent to your institute email!");
           setOtpModalOpen(true);
+        }else if(!responseData){
+          alert("Registration no. doesn't exists!!!");
         }else{
           alert("Something went wrong! Try again...");
         }
