@@ -1,18 +1,38 @@
-import React from 'react';
-import "./Info.scss";
+// HostelTable.js
 
-// Functional component for displaying information
-const Info = () => {
+import React from 'react';
+import './Info.scss';
+
+const HostelTable = () => {
+  // Sample data for hostels
+  const hostels = [
+    { hostelName: 'Malviya', wardenName: 'Aamir', contactInfo: '123-456-7890' },
+    { hostelName: 'Tandon', wardenName: 'Abhay', contactInfo: '987-654-3210' },
+    // Add more hostel entries as needed
+  ];
+
   return (
-    <div>
-      Information
+    <div className="hostel-table-container">
+      <table className="hostel-table">
+        <thead>
+          <tr>
+            <th>Hostel Name</th>
+            <th>Warden Name</th>
+            <th>Contact Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          {hostels.map((hostel, index) => (
+            <tr key={index}>
+              <td>{hostel.hostelName}</td>
+              <td>{hostel.wardenName}</td>
+              <td>{hostel.contactInfo}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
 
-export default Info;
-
-// Comments:
-// - This component serves as a placeholder for displaying information.
-// - You can customize the content of this component based on your specific use case.
-// - The styling for this component is expected to be defined in the associated "Info.scss" file.
+export default HostelTable;
