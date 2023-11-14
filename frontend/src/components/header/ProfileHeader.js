@@ -1,56 +1,64 @@
 import React, { useState } from 'react';
 import { images } from '../../images';
-// import { useNavigate } from 'react-router-dom';
-import "./profileHeader.scss";
+import './profileHeader.scss';
 import '../../modal/profilePopupModal/profilePopup.scss';
 import UpdatePassModal from '../../modal/updateModal/UpdatePassModal';
-
+import ComplaintBoxForm from './ComplaintBoxForm';
 
 const ProfileHeader = () => {
-  // Initialize the navigate function from react-router-dom
-  // const navigate = useNavigate();
-
-  // State for controlling the mobile menu
   const [open, setOpen] = useState(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [openUpdatePass, setOpenUpdatePass] = useState(false);
+  const [openComplaintBox, setOpenComplaintBox] = useState(false);
 
+  const handleProfileMouseEnter = () => {
+    setOpenComplaintBox(false);
+    setPopupOpen(true);
+  };
 
-  // Function to toggle the mobile menu
+  const handleProfileMouseLeave = () => {
+    setPopupOpen(false);
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
     setOpen(!open);
-  }
-
-  const [isPopupOpen, setPopupOpen] = useState(false);
-  const [openUpdatePass,setOpenUpdatePass] =useState(false);
-
+  };
 
   const togglePopup = () => {
     setPopupOpen(!isPopupOpen);
   };
-  const updatePassword =()=>{
-      setOpenUpdatePass(true);
+
+  const updatePassword = () => {
+    setOpenUpdatePass(true);
+  };
+
+  const complaintToggle = () => {
+    setOpenUpdatePass(false);
+    setOpenComplaintBox(!openComplaintBox);
   };
 
   return (
-    
     <div className='profileHeader'>
-      {/* Navigation bar */}
       <nav className="navbar container">
-        {/* Logo */}
         <div className="logo">
           <h2><b>Mess Management_@MNNIT</b></h2>
         </div>
-
-        {/* Navigation items */}
         <ul className={open ? "nav-items active" : "nav-items"}>
           <li id='pfp1'>Profile</li>
           <li>Contact</li>
           <li>Details</li>
-          <li>Complain Box</li>
-          <div className="profile-popup-container" >
-          <li className="profile-button"> <img src={images.people_first} alt='profile' onClick={togglePopup}/> </li>
-          {isPopupOpen && (
-            <div className="profile-popup">
+          <li className='complaint-box' onClick={complaintToggle}>Complain Box</li>
+          {openComplaintBox && <ComplaintBoxForm setOpenComplaintBox={setOpenComplaintBox} />}
+          <div className="profile-popup-container"
+            onMouseEnter={handleProfileMouseEnter}
+            onMouseLeave={handleProfileMouseLeave}
+          >
+            <li className="profile-button">
+              <img src={images.people_first} alt='profile'/>
+            </li>
+            {isPopupOpen && (
+              <div className="profile-popup">
                 <div className='popupHead'>
                   <h3 className='profileName'><b>Aamir</b></h3>
                   <br />
@@ -62,13 +70,10 @@ const ProfileHeader = () => {
                   <br />
                   <h4 className='logout'><b>Log Out</b></h4>
                 </div>
-                
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
         </ul>
-
-        {/* Hamburger menu icon for mobile */}
         <div className='hamburger'>
           <img src={images.hamburger} alt='' onClick={handleClick} />
         </div>
@@ -76,6 +81,6 @@ const ProfileHeader = () => {
       {openUpdatePass && <UpdatePassModal setOpenUpdatePass={setOpenUpdatePass}/>}
     </div>
   );
-}
+};
 
 export default ProfileHeader;
