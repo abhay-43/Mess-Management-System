@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { images } from '../../images';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import "./profileHeader.scss";
 import '../../modal/profilePopupModal/profilePopup.scss';
+import UpdatePassModal from '../../modal/updateModal/UpdatePassModal';
+
 
 const ProfileHeader = () => {
   // Initialize the navigate function from react-router-dom
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // State for controlling the mobile menu
   const [open, setOpen] = useState(false);
+
 
   // Function to toggle the mobile menu
   const handleClick = (e) => {
@@ -18,9 +21,14 @@ const ProfileHeader = () => {
   }
 
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [openUpdatePass,setOpenUpdatePass] =useState(false);
+
 
   const togglePopup = () => {
     setPopupOpen(!isPopupOpen);
+  };
+  const updatePassword =()=>{
+      setOpenUpdatePass(true);
   };
 
   return (
@@ -50,7 +58,7 @@ const ProfileHeader = () => {
                 </div>
                 <hr />
                 <div className='popupBottom'>
-                  <h4 className='change-password'><b>Change Password</b></h4>
+                  <h4 className='change-password' onClick={updatePassword}><b>Update Password</b></h4>
                   <br />
                   <h4 className='logout'><b>Log Out</b></h4>
                 </div>
@@ -65,6 +73,7 @@ const ProfileHeader = () => {
           <img src={images.hamburger} alt='' onClick={handleClick} />
         </div>
       </nav>
+      {openUpdatePass && <UpdatePassModal setOpenUpdatePass={setOpenUpdatePass}/>}
     </div>
   );
 }
