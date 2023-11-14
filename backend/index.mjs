@@ -61,7 +61,6 @@ app.post('/verifyOTP', async  function (req, res) {
   try{
     const {newPassword, OTP} = req.body;
     const token = req.cookies.id;
-    console.log(token);
     const Reg_no = await decodeCookieToken(token);
     const otpMatch = (forgetReqUser[Reg_no] == OTP);
     if(otpMatch){
