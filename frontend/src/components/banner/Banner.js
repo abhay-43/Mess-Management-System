@@ -1,12 +1,16 @@
-import React from 'react'
+import React from 'react';
 import "./Banner.scss";
-const Banner= () => {
+
+// Banner component
+const Banner = () => {
   return (
     <div>
+      {/* Banner content goes here */}
       Banner
     </div>
-  )
+  );
 }
 
-export default Banner
+export default Banner;
+
 
