@@ -1,0 +1,32 @@
+// HostelTable.scss
+
+/* Styling for the hostel table container */
+.hostel-table-container {
+    margin: 20px;
+  }
+  
+  /* Styling for the hostel table */
+  .hostel-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: left;
+  
+    /* Styling for the table header */
+    th {
+      background-color: #f2f2f2;
+      padding: 10px;
+    }
+  
+    /* Styling for alternating row colors */
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    /* Styling for table cells */
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+  }
+  
