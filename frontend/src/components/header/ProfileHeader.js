@@ -39,8 +39,8 @@ const ProfileHeader = () => {
           <li>Contact</li>
           <li>Details</li>
           <li>Complain Box</li>
-          <div className="profile-popup-container" onClick={togglePopup}>
-          <li className="profile-button"> <img src={images.people_first} alt='profile'/> </li>
+          <div className="profile-popup-container" >
+          <li className="profile-button"> <img src={images.people_first} alt='profile' onClick={togglePopup}/> </li>
           {isPopupOpen && (
             <div className="profile-popup">
                 <div className='popupHead'>
@@ -50,9 +50,9 @@ const ProfileHeader = () => {
                 </div>
                 <hr />
                 <div className='popupBottom'>
-                  <h4 className='updatePassword'><b>Change Password</b></h4>
+                  <h4 className='change-password'><b>Change Password</b></h4>
                   <br />
-                  <h4 className='logOut'><b>Log Out</b></h4>
+                  <h4 className='logout'><b>Log Out</b></h4>
                 </div>
                 
             </div>
