@@ -8,6 +8,7 @@ const client = new Client({
   connectionString: DATABASE_URL,
 });
 
+//connect database function
 async function connectDB() {
     try {
       await client.connect();
