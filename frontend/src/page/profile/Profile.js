@@ -8,6 +8,11 @@ const Profile = () => {
    
       <div>
         <ProfileHeader/>
+        <br/>
+        <h3>Name of the Hostel: ............</h3>
+        <h3>Menu of the mess:</h3>
+        <img src='messMenu.jpeg' />
+
         <Footer/>
       </div>
     
