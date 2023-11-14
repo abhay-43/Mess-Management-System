@@ -27,8 +27,9 @@ const Login = () => {
       body: JSON.stringify(data)
     });
     const responseData = await response.json();
-    if(responseData.success) window.location.href ='/profile';
-    else alert("Incorrect Password !")
+    if(responseData.success && !responseData.error) window.location.href ='/profile';
+    else if(!responseData.success && !responseData.error) alert("Incorrect password! Try again...");
+    else if(!responseData.success && responseData.error) alert("Registration no. doesn't exists !");
     }catch(err){
       console.log(err);
     }

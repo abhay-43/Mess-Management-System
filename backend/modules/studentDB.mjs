@@ -82,7 +82,7 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password) {
         const result = await client.query(query, [Reg_no]);
         return result.rows[0][Parameter];
       } catch (err) {
-        console.error(err);
+        throw new DatabaseError("DATABASE ERROR :");
       } 
     }
 
@@ -110,10 +110,11 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password) {
   
     //generate student email 
     async function createSE(Reg_no){
-      const name = await fetchSD('first_name', Reg_no);
-      let email = `${name}.${Reg_no}` + '@mnnit.ac.in';
-      return email;
+        const name = await fetchSD('first_name', Reg_no);
+        let email = `${name}.${Reg_no}` + '@mnnit.ac.in';
+        return email;
     }
+    
 
     export {
         connectDB,

@@ -28,11 +28,12 @@ app.post('/login', async function (req, res) {
     const pass = await fetchSD('password',Reg_no);
     const passwordMatch = bcrypt.compareSync(Password, pass);
     if(passwordMatch){
-        res.json({success : true}); 
+        res.json({success : true, error : false}); 
     }else{
-        res.json({success : false});
+        res.json({success : false, error : false});
     }
   }catch(err){
+    res.json({success : false, error : true});
     console.log(err);
   }
 });
@@ -43,6 +44,9 @@ app.post('/sendOTP', async  function (req, res) {
   try{
     const {Reg_no} = req.body;
     const OTP = await sendMail(Reg_no);
+    if(OTP === undefined) { //if reg no doesn't exist then value of OTP will be undefined
+      res.send(false);
+    } 
     forgetReqUser[Reg_no] = OTP;
     const token = generateCookieToken(Reg_no);
     res.cookie('id',token,{httpOnly: true, maxAge : fourHoursInMilliseconds, sameSite: 'None', secure: true });
@@ -74,8 +78,8 @@ app.post('/verifyOTP', async  function (req, res) {
 
 app.get('/', async  function (req, res) {
     // const obj = await fetchSD('first_name','20214279');
-    const obj = await insertSD('20214006','Bhanu', 'Singh','Tandon','30042001');
-    res.send(obj);
+    // const obj = await insertSD('20214006','Bhanu', 'Singh','Tandon','30042001');
+    // res.send(obj);
     //
   });
 
