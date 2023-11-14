@@ -14,7 +14,7 @@ const ProfileHeader = () => {
       <nav className="navbar container">
         <div className="logo">
            
-            <h2>MMS</h2>
+        <h2><b>Mess Management_@MNNIT</b></h2>
         </div>
         <ul className={open? "nav-items active" :"nav-items"}>
             <li id='pfp1'>Profile</li>
