@@ -1,28 +1,31 @@
+/* Container for the horizontal scrolling menu */
 .scrollmenu {
     display: flex;
     overflow-x: auto;
-    background-color: #e989c87e;
-  }
-  
-  .item {
-    flex: 0 0 auto;
-    box-sizing: border-box;
-    padding: 14px;
-    text-align: center;
-    color: white;
-    text-decoration: none;
-  }
-  
-  .item:hover {
-    background-color: skyblue;
-  }
-  
-  .item {
+    background-color: #e989c87e; /* Semi-transparent background color */
+}
+
+/* Individual items in the scrolling menu */
+.item {
+    flex: 0 0 auto; /* Set flex properties to control item sizing */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    padding: 14px; /* Padding around each item */
+    text-align: center; /* Center the text within each item */
+    color: white; /* Text color */
+    text-decoration: none; /* Remove default hyperlink styling */
+}
+
+/* Hover effect for items in the scrolling menu */
+.item:hover {
+    background-color: skyblue; /* Background color on hover */
+}
+
+/* Styling for the images within each item */
+.item img {
     width: 400px; /* Adjust the width of the images as needed */
     height: 400px; /* Adjust the height of the images as needed */
-    object-fit: cover;
+    object-fit: cover; /* Maintain aspect ratio and cover the entire container */
     border-radius: 8px; /* Add border-radius for rounded corners */
     margin-right: 5px; /* Adjust spacing between images */
     margin-left: 5px; /* Adjust spacing between images */
-  }
-  
+}

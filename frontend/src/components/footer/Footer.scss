@@ -2,76 +2,96 @@ footer{
     background-color:rgb(252, 243, 226);
     position: relative;
 
-    .logo{
+    /* Logo styling */
+    .logo {
         max-width: 15rem;
     }
-    
-    .footer-header{
-         display: flex;
-         justify-content: space-between;
-         padding: 3rem 0;
-         width: 100%;
-         @media (max-width:480px) {
+
+    /* Header styling */
+    .footer-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 3rem 0;
+        width: 100%;
+
+        @media (max-width: 480px) {
+            /* Responsive styling for smaller screens */
             flex-direction: column;
             align-items: center;
-            .logo{
+
+            .logo {
                 padding-bottom: 1rem;
             }
-         }
+        }
     }
-    .footer-art{
+
+    /* Art in the footer styling */
+    .footer-art {
         max-width: 40rem;
         position: absolute;
     }
-    .footer{
+
+    /* Main footer content styling */
+    .footer {
         width: 100%;
-        @media (max-width:767px){
+
+        @media (max-width: 767px) {
+            /* Responsive padding for smaller screens */
             padding: 0 4rem;
         }
-        img{
+
+        img {
             max-width: 10rem;
         }
     }
-    .social-media-icons{
+
+    /* Social media icons styling */
+    .social-media-icons {
         display: flex;
         width: 50%;
         justify-content: space-between;
         max-width: 25rem;
-        img{
+
+        img {
             max-width: 3rem;
         }
-    }  
-    .footer-menu{
+    }
+
+    /* Footer menu styling */
+    .footer-menu {
         display: grid;
-        grid-template-columns: repeat(4,1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 2rem;
         padding: 3rem 0;
 
-        div{
-            margin: 5px 0; 
+        div {
+            margin: 5px 0;
         }
-        h3{
-            padding-bottom: 2rem ;
+
+        h3 {
+            padding-bottom: 2rem;
             font-size: 2rem;
             opacity: 0.5;
         }
 
-        li{
+        li {
             padding: 5px 0;
             font-weight: 700;
         }
-        @media(max-width:767px) {
-            grid-template-columns: repeat(2,1fr);
+
+        @media (max-width: 767px) {
+            /* Responsive styling for smaller screens */
+            grid-template-columns: repeat(2, 1fr);
         }
-        @media(max-width:480px) {
-            grid-template-columns: repeat(1,1fr);
+
+        @media (max-width: 480px) {
+            /* Further responsive styling for smaller screens */
+            grid-template-columns: repeat(1, 1fr);
             place-items: center;
-            div{
+
+            div {
                 text-align: center;
             }
         }
-    }     
-        
-
-
+    }
 }
