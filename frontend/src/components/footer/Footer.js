@@ -15,7 +15,7 @@ const Footer = () => {
             <div className='footer'>
                <div className='footer-header'> 
                   <div className='logo'>
-                    <h2>MMS</h2>
+                  <h2><b>Mess Management_@MNNIT</b></h2>
                   </div>
                   <div className='social-media-icons'>
                     <img src={images.fb} alt=""/>
