@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../../components/footer/Footer';
 import ProfileHeader from '../../components/header/ProfileHeader';
-
+import "./Profile.scss"
 const Profile = () => {
   const [hostelName, setHostelName] = useState('');
 
