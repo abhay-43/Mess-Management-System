@@ -78,7 +78,7 @@ app.post('/verifyOTP', async  function (req, res) {
 
 app.get('/', async  function (req, res) {
     // const obj = await fetchSD('first_name','20214279');
-    // const obj = await insertSD('20214006','Bhanu', 'Singh','Tandon','30042001');
+    // const obj = await insertSD('20214197','Aamir', 'Siddiqui','Malviya','18042003','Mess secretary');
     // res.send(obj);
     //
   });

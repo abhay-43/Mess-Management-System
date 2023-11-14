@@ -19,7 +19,7 @@ async function connectDB() {
   }
 
 //function for inserting student data from database
-async function insertSD(Reg_no, First_name, Last_name, Hostel, Password) {
+async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, responsibility) {
 
     const select = `USE mms;`;
     try {
@@ -30,12 +30,12 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password) {
     } 
   
     const query = `
-      INSERT INTO students (Reg_no, First_name, Last_name, Hostel, Password)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO students (Reg_no, First_name, Last_name, Hostel, Password, responsibility)
+      VALUES ($1, $2, $3, $4, $5, $6)
     `;
     try {
       const pass = bcrypt.hashSync(Password,salt);
-      const result = await client.query(query, [Reg_no, First_name, Last_name, Hostel, pass]);
+      const result = await client.query(query, [Reg_no, First_name, Last_name, Hostel, pass, responsibility]);
       console.log("Data stored in student Table !");
     } catch (err) {
       console.error(err);
