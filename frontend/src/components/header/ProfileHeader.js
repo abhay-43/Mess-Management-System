@@ -9,39 +9,37 @@ import ComplaintBoxForm from './ComplaintBoxForm';
 const ProfileHeader = (props) => {
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
-  const [isPopupOpen, setPopupOpen] = useState(false);
-  const [openUpdatePass, setOpenUpdatePass] = useState(false);
+  const [openHamburger, setOpenHamburger] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
+  const [openUpdatePassword, setOpenUpdatePassword] = useState(false);
   const [openComplaintBox, setOpenComplaintBox] = useState(false);
   const [name, setName] = useState('');
   const [regno, setRegno] = useState('');
 
-  const handleProfileMouseEnter = () => {
-    setOpenComplaintBox(false);
-    setPopupOpen(true);
-  };
-
-  const handleProfileMouseLeave = () => {
-    setPopupOpen(false);
-  };
-
-  const handleClick = (e) => {
+  const toggleHamburger = (e) => {
     e.preventDefault();
-    setOpen(!open);
+    setOpenComplaintBox(false);
+    setOpenProfile(false);
+    setOpenUpdatePassword(false);
+    setOpenHamburger(!openHamburger);
   };
 
-  const togglePopup = () => {
+  const toggleProfile = () => {
+    setOpenComplaintBox(false);
+    setOpenUpdatePassword(false);
     setName(props.name);
     setRegno(props.regno);
-    setPopupOpen(!isPopupOpen);
+    setOpenProfile(!openProfile);
   };
 
-  const updatePassword = () => {
-    setOpenUpdatePass(true);
+  const toggleUpdatePassword = () => {
+    setOpenComplaintBox(false);
+    setOpenUpdatePassword(!openUpdatePassword);
   };
 
-  const complaintToggle = () => {
-    setOpenUpdatePass(false);
+  const toggleComplaintBox = () => {
+    setOpenProfile(false);
+    setOpenUpdatePassword(false);
     setOpenComplaintBox(!openComplaintBox);
   };
 
@@ -69,20 +67,17 @@ const ProfileHeader = (props) => {
         <div className="logo">
           <h2><b>Mess Management_@MNNIT</b></h2>
         </div>
-        <ul className={open ? "nav-items active" : "nav-items"}>
+        <ul className={openHamburger ? "nav-items active" : "nav-items"}>
           <li id='pfp1'>Profile</li>
           <li>Contact</li>
           <li>Details</li>
-          <li className='complaint-box' onClick={complaintToggle}>Complain Box</li>
+          <li className='complaint-box' onClick={toggleComplaintBox}>Complain Box</li>
           {openComplaintBox && <ComplaintBoxForm />}
-          <div id="pfp2" className="profile-popup-container"
-            onMouseEnter={handleProfileMouseEnter}
-            onMouseLeave={handleProfileMouseLeave}
-          >
+          <div id="pfp2" className="profile-popup-container">
             <li className="profile-button">
-              <img src={images.people_first} alt='profile' onClick={togglePopup} />
+              <img src={images.people_first} alt='profile' onClick={toggleProfile} />
             </li>
-            {isPopupOpen && (
+            {openProfile && (
               <div className="profile-popup">
                 <div className='popupHead'>
                   {name && <h3><b>{name}</b></h3>}
@@ -91,7 +86,7 @@ const ProfileHeader = (props) => {
                 </div>
                 <hr />
                 <div className='popupBottom'>
-                  <h4 className='change-password' onClick={updatePassword}><b>Change Password</b></h4>
+                  <h4 className='change-password' onClick={toggleUpdatePassword}><b>Change Password</b></h4>
                   <br />
                   <h4 className='logout' onClick={logout}><b>Log Out</b></h4>
                 </div>
@@ -100,10 +95,10 @@ const ProfileHeader = (props) => {
           </div>
         </ul>
         <div className='hamburger'>
-          <img src={images.hamburger} alt='' onClick={handleClick} />
+          <img src={images.hamburger} alt='' onClick={toggleHamburger} />
         </div>
       </nav>
-      {openUpdatePass && <UpdatePassModal setOpenUpdatePass={setOpenUpdatePass} />}
+      {openUpdatePassword && <UpdatePassModal setOpenUpdatePassword={setOpenUpdatePassword} />}
     </div>
   );
 };

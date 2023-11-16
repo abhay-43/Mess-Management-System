@@ -1,6 +1,6 @@
 import React,{useState}  from 'react'
 
-const UpdatePassModal = ({setOpenUpdatePass}) => {
+const UpdatePassModal = ({setOpenUpdatePassword}) => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,7 +14,7 @@ const UpdatePassModal = ({setOpenUpdatePass}) => {
       <div className="titleCloseBtn">
          <button
            onClick={() => {
-            setOpenUpdatePass(false);
+            setOpenUpdatePassword(false);
           }}
          >
          X

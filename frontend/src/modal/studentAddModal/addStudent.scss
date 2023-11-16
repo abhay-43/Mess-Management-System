@@ -1,0 +1,77 @@
+.add-student-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+  
+    h2 {
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+  
+      .form-group {
+        display: flex; /* Display label and input in a row */
+        align-items: center; /* Align items vertically in the center */
+        margin-bottom: 15px;
+  
+        label {
+          flex: 1; /* Take 1/3 of the space */
+          font-weight: bold;
+          margin-right: 8px; /* Adjust the margin as needed */
+          color: #010101;
+          display: block;
+        }
+  
+        input[type="text"],
+        input[type="password"],
+        select {
+          flex: 2; /* Take 2/3 of the space */
+          width: 100%;
+          padding: 12px;
+          border: 2px solid #ddd;
+          border-radius: 8px;
+          font-size: 14px;
+          margin-top: 8px;
+        }
+  
+        select {
+          flex: 2;
+          appearance: none;
+          background: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>')
+            no-repeat right 8px center;
+          background-size: 18px;
+        }
+  
+        button {
+          flex: 1; /* Take 1/3 of the space */
+          padding: 12px;
+          margin-top: 15px;
+          cursor: pointer;
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          background-color: #3498db;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: #2980b9;
+          }
+        }
+      }
+    }
+  }
+  
