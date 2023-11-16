@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './searchQuery.scss';
 
 const mockData = [
-  { id: 1, name: 'John Doe', regNo: '20210004' },
-  { id: 1, name: 'John Doe', regNo: '20210003' },
-  { id: 2, name: 'Jane Doe', regNo: '20210001' }
+  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' },
+  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' },
+  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' }
   // Add more data as needed
 ];
 
@@ -30,9 +30,10 @@ const SearchQueries = () => {
       </div>
       <div className="card-container">
         {filteredData.map((student) => (
-          <div key={student.id} className="student-card">
-            <h3>{student.name}</h3>
-            <p>{student.regNo}</p>
+          <div key={student.reg_no} className="student-card">
+            <h3>{student.first_name + " " + student.last_name}</h3>
+            <p>{student.reg_no}</p>
+            <p>{student.responsibility}</p>
           </div>
         ))}
       </div>
