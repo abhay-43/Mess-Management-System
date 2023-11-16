@@ -19,6 +19,7 @@ const AdminProfile = () => {
   const [openAddStudent, setOpenAddStudent] = useState(false);
   const [name, setName] = useState('');
   const [responsibility, setResponsibility] = useState('');
+  const [hostel, setHostel] = useState('');
 
   const toggleHamburger = (e) => {
     e.preventDefault();
@@ -47,7 +48,7 @@ const AdminProfile = () => {
     setOpenAddStudent(!openAddStudent);
   };
 
-  useEffect(() => {
+  useEffect( () => {
     const getAdminData = async () => {
       try {
         const response = await fetch("http://localhost:5005/adminData", {
@@ -62,14 +63,13 @@ const AdminProfile = () => {
         if (responseData) {
           setName(responseData.first_name+' '+responseData.last_name || '');
           setResponsibility(responseData.responsibility+' ('+responseData.hostel+')' || '');
+          setHostel(responseData.hostel);
         }
       } catch (err) {
         console.error(err);
       }
     };
-
-    // Call the getHostel function when the component mounts
-    getAdminData();
+     getAdminData();
   }, []);
 
   const logout = async () => {
@@ -131,7 +131,7 @@ const AdminProfile = () => {
       {openUpdatePassword && <UpdatePassModal setOpenUpdatePassword={setOpenUpdatePassword} />}
     </div>
     <div className='adminProfileBody'>
-        <SearchQueries />
+        <SearchQueries hostel = {hostel}/>
     </div>
        
         <Footer/>

@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { sendMail, sendMailAdmin } from './modules/sendMail.mjs';
 import { connectDB } from './modules/dbConnect.mjs';
-import { insertSD, deleteSD, fetchSAD, fetchSD, changeSP } from './modules/studentDB.mjs';
+import { insertSD, deleteSD, fetchSAD, fetchSD, changeSP, getAllStudents } from './modules/studentDB.mjs';
 import { insertAD, deleteAD, fetchAAD, fetchAD, changeAP } from './modules/adminDB.mjs';
 import { generateCookieToken, decodeCookieToken } from './modules/jwt.mjs';
 
@@ -161,24 +161,27 @@ app.get('/adminData', async function (req, res) {
   }
 });
 
-app.get('/hostel', async  function (req, res) {
-    // const obj = await fetchSD('first_name','20214279');
-    // const obj = await insertSD('20214197','Aamir', 'Siddiqui','Malviya','18042003','Mess secretary');
-    // res.send(obj);
-    //
-    // const id = req.cookies.id;
-    // const regno = await decodeCookieToken(id);
-    // const hostel = await fetchSD('hostel',regno);
-    // console.log(hostel);
-    // res.json({name : hostel});
+
+//route to get all students data from a hostel 
+app.post('/hostel', async  function (req, res) {
+    try{
+      // const { hostel } = req.body;
+      const hostel = 'Tandon';
+      const obj = await getAllStudents(hostel);
+      res.send(obj);
+
+    }catch(err){
+      console.log(err);
+    }
   });
 
   
 app.get('/', async  function (req, res) {
     // const data = await insertAD('babujames0007@gmail.com','James', 'Bond', 'Tandon', '123456', 'Warden');
     // res.send(data);
-    // const data = await fetchAD('password','babujames0007@gmail.com');
+    // const data = await getAllStudents('Malviya');
     // res.send(data);
+    
 });
 
 

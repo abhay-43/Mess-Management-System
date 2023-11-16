@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './searchQuery.scss';
 
-const mockData = [
-  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' },
-  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' },
-  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' }
-  // Add more data as needed
-];
 
-const SearchQueries = () => {
+var mockData;
+const SearchQueries = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
+  // const [mockData, setMockData] = useState('');
   const filteredData = mockData.filter((student) =>
     Object.values(student).some(
       (value) =>
@@ -17,6 +13,34 @@ const SearchQueries = () => {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+  useEffect( () => {
+    const getAllStudents = async () => {
+      try {
+        const data = {
+          hostel : props.hostel
+        }
+        const response = await fetch("http://localhost:5005/hostel", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body : JSON.stringify(data)
+        });
+  
+        const responseData = await response.json();
+        console.log(responseData)
+        // setMockData(responseData);
+        mockData = responseData;
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  
+    getAllStudents();
+  }, []); 
+  
 
   return (
     <div className="search-queries">

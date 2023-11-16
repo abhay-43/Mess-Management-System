@@ -118,6 +118,28 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         console.error(err);
       } 
     }
+
+    //get all student details from hostel
+    async function getAllStudents(hostel) {
+  
+      const select = `USE mms;`;
+      try {
+        const result = await client.query(select);
+        console.log("Database mms selected !");
+      } catch (err) {
+        console.error(err);
+      } 
+    
+      const query = `SELECT reg_no, first_name, last_name, responsibility FROM students WHERE hostel = $1 `;
+  
+      try {
+        const result = await client.query(query, [hostel]);
+        return result.rows;
+      } catch (err) {
+        console.error(err);
+      } 
+    }
+
   
     //generate student email 
     async function createSE(Reg_no){
@@ -133,5 +155,6 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         fetchSAD,
         fetchSD,
         createSE,
-        changeSP
+        changeSP,
+        getAllStudents
     };
