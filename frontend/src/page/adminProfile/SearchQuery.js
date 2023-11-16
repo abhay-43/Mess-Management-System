@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './searchQuery.scss';
 
 
-var mockData;
+var mockData = [
+  { reg_no: '', first_name: '', last_name: '', responsibility: '' }
+ ];
+ 
 const SearchQueries = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
-  // const [mockData, setMockData] = useState('');
+  
+  
   const filteredData = mockData.filter((student) =>
     Object.values(student).some(
       (value) =>
@@ -32,6 +36,7 @@ const SearchQueries = (props) => {
         const responseData = await response.json();
         console.log(responseData)
         // setMockData(responseData);
+        
         mockData = responseData;
       } catch (err) {
         console.error(err);
