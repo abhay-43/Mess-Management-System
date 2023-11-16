@@ -38,9 +38,9 @@ const Profile = () => {
     <div>
       <ProfileHeader  name = {name} regno = {regno}/>
       <br />
+      <div className='profileBody'>
       <h3>Name of the Hostel: {hostelName}</h3>
-      <h3>Menu of the mess:</h3>
-      <img src='messMenu.jpeg' alt='Mess Menu' />
+      </div>
 
       <Footer />
     </div>
