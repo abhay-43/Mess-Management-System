@@ -4,7 +4,9 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { sendMail } from './modules/sendMail.mjs';
-import { connectDB, insertSD, deleteSD, fetchSAD, fetchSD, changeSP } from './modules/studentDB.mjs';
+import { connectDB } from './modules/dbConnect.mjs';
+import { insertSD, deleteSD, fetchSAD, fetchSD, changeSP } from './modules/studentDB.mjs';
+import { insertAD, deleteAD, fetchAAD, fetchAD, changeAP } from './modules/adminDB.mjs';
 import { generateCookieToken, decodeCookieToken } from './modules/jwt.mjs';
 
 const app = express();
@@ -31,6 +33,29 @@ app.post('/login', async function (req, res) {
     if(passwordMatch){
         // const role = await fetchSD('responsibility',Reg_no);
         const token = generateCookieToken(Reg_no);
+        res.cookie('id',token,{httpOnly: true, maxAge : fourHoursInMilliseconds, sameSite: 'None', secure: true });
+        Users[req.cookies.id] = {
+          login : true
+        }
+        res.json({success : true, error : false}); 
+    }else{
+        res.json({success : false, error : false});
+    }
+  }catch(err){
+    res.json({success : false, error : true});
+    console.log(err);
+  }
+});
+
+//login router handler for students
+app.post('/adminlogin', async function (req, res) {
+  try{
+    const {Email, Password} = req.body;
+    const pass = await fetchAD('password',Email);
+    const passwordMatch = bcrypt.compareSync(Password, pass);
+    if(passwordMatch){
+        // const role = await fetchSD('responsibility',Reg_no);
+        const token = generateCookieToken(Email);
         res.cookie('id',token,{httpOnly: true, maxAge : fourHoursInMilliseconds, sameSite: 'None', secure: true });
         Users[req.cookies.id] = {
           login : true
@@ -87,7 +112,6 @@ app.post('/verifyOTP', async  function (req, res) {
 app.get('/logout', async  function (req, res) {
   try{
     const id = req.cookies.id;
-    console.log(Users);
     delete Users[id];
     res.clearCookie('id');
     res.send(true);
@@ -123,7 +147,9 @@ app.get('/hostel', async  function (req, res) {
 
   
 app.get('/', async  function (req, res) {
-    // const data = await insertSD('20214013','Ankit', 'Lakhlan', 'Tandon', '31032003', 'None');
+    // const data = await insertAD('babujames0007@gmail.com','James', 'Bond', 'Tandon', '123456', 'Warden');
+    // res.send(data);
+    // const data = await fetchAD('password','babujames0007@gmail.com');
     // res.send(data);
 });
 

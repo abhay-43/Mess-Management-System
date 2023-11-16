@@ -2,9 +2,8 @@ import { client } from "./dbConnect.mjs";
 import bcrypt from 'bcrypt';
 const salt = bcrypt.genSaltSync(10);
 
-
 //function for inserting student data from database
-async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, responsibility) {
+async function insertAD(Email, First_name, Last_name, Hostel, Password, responsibility) {
 
     const select = `USE mms;`;
     try {
@@ -15,20 +14,20 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
     } 
   
     const query = `
-      INSERT INTO students (Reg_no, First_name, Last_name, Hostel, Password, responsibility)
+      INSERT INTO admins (Email, First_name, Last_name, Hostel, Password, responsibility)
       VALUES ($1, $2, $3, $4, $5, $6)
     `;
     try {
       const pass = bcrypt.hashSync(Password,salt);
-      const result = await client.query(query, [Reg_no, First_name, Last_name, Hostel, pass, responsibility]);
-      console.log("Data stored in student Table !");
+      const result = await client.query(query, [Email, First_name, Last_name, Hostel, pass, responsibility]);
+      console.log("Data stored in Admin Table !");
     } catch (err) {
       console.error(err);
     }
   }
   
   //function for deleting student data from database
-  async function deleteSD(Reg_no) {
+  async function deleteAD(Email) {
   
       const select = `USE mms;`;
       try {
@@ -38,18 +37,19 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         console.error(err);
       } 
     
-      const query = `DELETE FROM students WHERE Reg_no = $1 `;
+      const query = `DELETE FROM admins WHERE email = $1 `;
   
       try {
-        const result = await client.query(query, [Reg_no]);
-        console.log(`Row Deleted with Reg.no. ${Reg_no} from student Table !`);
+        const result = await client.query(query, [Email]);
+        console.log(`Row Deleted with Email ${Email} from Admin Table !`);
       } catch (err) {
         console.error(err);
       }
     }
 
-    //function for fetching student data from database
-    async function fetchSAD(Reg_no) {
+
+    //function for fetching admin data from database
+    async function fetchAAD(Email) {
   
       const select = `USE mms;`;
       try {
@@ -59,12 +59,12 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         console.error(err);
       } 
     
-      const query = `SELECT reg_no, first_name, last_name, hostel, responsibility FROM students WHERE Reg_no = $1 `;
+      const query = `SELECT email, first_name, last_name, hostel, responsibility FROM students WHERE email = $1 `;
   
       try {
-        const result = await client.query(query, [Reg_no]);
+        const result = await client.query(query, [Email]);
         const data = {
-          reg_no : result.rows[0].reg_no,
+          reg_no : result.rows[0].email,
           first_name : result.rows[0].first_name,
           last_name : result.rows[0].last_name,
           hostel : result.rows[0].hostel,
@@ -75,9 +75,10 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         console.log(err);
       } 
     }
-  
-    //function for fetching student data from database with parameter
-    async function fetchSD(Parameter, Reg_no) {
+
+
+    //function for fetching admin data from database with parameter
+    async function fetchAD(Parameter, Email) {
   
       const select = `USE mms;`;
       try {
@@ -87,18 +88,18 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         console.error(err);
       } 
     
-      const query = `SELECT ${Parameter} FROM students WHERE Reg_no = $1 `;
+      const query = `SELECT ${Parameter} FROM admins WHERE email = $1 `;
   
       try {
-        const result = await client.query(query, [Reg_no]);
+        const result = await client.query(query, [Email]);
         return result.rows[0][Parameter];
       } catch (err) {
-        throw new DatabaseError("DATABASE ERROR :");
+        console.log(err);
       } 
     }
 
-    //function for updating student password into database
-    async function changeSP(password, Reg_no) {
+    //function for updating admin password into database
+    async function changeAP(password, Email) {
   
       const select = `USE mms;`;
       try {
@@ -108,30 +109,21 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         console.error(err);
       } 
     
-      const query = `UPDATE students SET password = $1 WHERE Reg_no = $2`;
+      const query = `UPDATE students SET password = $1 WHERE email = $2`;
   
       try {
         const pass = bcrypt.hashSync(password,salt);
-        const result = await client.query(query, [pass,Reg_no]);
-        console.log(`Password updated of Reg.no. ${Reg_no}...`);
+        const result = await client.query(query, [pass,Email]);
+        console.log(`Password updated of admin with email : ${Email}...`);
       } catch (err) {
         console.error(err);
       } 
     }
-  
-    //generate student email 
-    async function createSE(Reg_no){
-        const name = await fetchSD('first_name', Reg_no);
-        let email = `${name}.${Reg_no}` + '@mnnit.ac.in';
-        return email;
-    }
-    
 
     export {
-        insertSD,
-        deleteSD,
-        fetchSAD,
-        fetchSD,
-        createSE,
-        changeSP
-    };
+        insertAD,
+        fetchAD,
+        fetchAAD,
+        deleteAD,
+        changeAP
+    }
