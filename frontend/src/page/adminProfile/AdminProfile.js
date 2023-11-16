@@ -7,6 +7,7 @@ import '../../modal/profilePopupModal/profilePopup.scss';
 import UpdatePassModal from '../../modal/updateModal/UpdatePassModal';
 import AddStudentForm from '../../modal/studentAddModal/AddStudent';
 import './adminProfile.scss'
+import SearchQueries from './SearchQuery';
 
 
 
@@ -130,8 +131,7 @@ const AdminProfile = () => {
       {openUpdatePassword && <UpdatePassModal setOpenUpdatePassword={setOpenUpdatePassword} />}
     </div>
     <div className='adminProfileBody'>
-    <br/>
-        <p>This part is use for functionality</p>
+        <SearchQueries />
     </div>
        
         <Footer/>
