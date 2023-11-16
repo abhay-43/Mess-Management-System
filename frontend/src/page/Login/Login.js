@@ -36,11 +36,6 @@ const Login = () => {
     }
   };
 
-  const handleForgotPassword = () => {
-    // Implement your forgot password logic here
-    console.log('Forgot Password clicked');
-  };
-
   return (
     <div className='login'>
     <div className="login-container">

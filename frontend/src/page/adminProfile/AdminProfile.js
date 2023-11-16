@@ -1,5 +1,5 @@
 import Footer from '../../components/footer/Footer'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { images } from '../../images';
 import { useNavigate } from 'react-router-dom';
 import '../../components/header/profileHeader.scss';
@@ -17,7 +17,7 @@ const AdminProfile = () => {
   const [openUpdatePassword, setOpenUpdatePassword] = useState(false);
   const [openAddStudent, setOpenAddStudent] = useState(false);
   const [name, setName] = useState('');
-  const [regno, setRegno] = useState('');
+  const [responsibility, setResponsibility] = useState('');
 
   const toggleHamburger = (e) => {
     e.preventDefault();
@@ -46,22 +46,47 @@ const AdminProfile = () => {
     setOpenAddStudent(!openAddStudent);
   };
 
+  useEffect(() => {
+    const getAdminData = async () => {
+      try {
+        const response = await fetch("http://localhost:5005/adminData", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include'
+        });
+
+        const responseData = await response.json();
+        if (responseData) {
+          setName(responseData.first_name+' '+responseData.last_name || '');
+          setResponsibility(responseData.responsibility+' ('+responseData.hostel+')' || '');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // Call the getHostel function when the component mounts
+    getAdminData();
+  }, []);
+
   const logout = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:5005/logout", {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       credentials: 'include'
-  //     });
-  //     const responseData = await response.json();
-  //     if (response) {
-  //       window.location.href = "/";
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
+    try {
+      const response = await fetch("http://localhost:5005/logout", {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      });
+      const responseData = await response.json();
+      if (response) {
+        window.location.href = "/";
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -86,7 +111,7 @@ const AdminProfile = () => {
                 <div className='popupHead'>
                   {name && <h3><b>{name}</b></h3>}
                   <br />
-                  {regno && <h3><b>{regno}</b></h3>}
+                  {responsibility && <h4><b>{responsibility}</b></h4>}
                 </div>
                 <hr />
                 <div className='popupBottom'>

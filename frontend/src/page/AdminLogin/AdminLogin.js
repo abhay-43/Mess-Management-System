@@ -2,14 +2,18 @@ import React,{useState} from 'react'
 import ForgetModal from '../../modal/forgetModal/ForgetModal';
 import OtpModal from '../../modal/otpModal/OtpModal';
 
+
 const AdminLogin = () => {
   const [optModalOpen,setOtpModalOpen]=useState(false);
- 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   //write code to handle login
   const handleAdminLogin = async() => {
+    if(!email || !email.includes('@')){
+      alert("Not a valid email address");
+      return;
+    }
     const data = {
       Email : email,
       Password : password
@@ -31,6 +35,41 @@ const AdminLogin = () => {
       console.log(err);
     }
   };
+
+  const handleForgetPass = async() => {
+    if(!email || !email.includes('@')){
+      alert("Enter a valid email address in email section.");
+      return;
+    }
+    try{
+      const text = `To verify a OTP sent to ${email}`;
+      if(window.confirm(text)){
+        const data = {
+          email : email
+        }
+        const response = await fetch("http://localhost:5005/sendOTPadmin",{
+          method : 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify(data)
+        });
+        const  responseData = await response.json();
+        if(responseData){
+          alert(`OTP has been sent to ${email}!`);
+          setOtpModalOpen(true);
+        }else if(!responseData){
+          alert("Email doesn't registered!");
+        }else{
+          alert("Something went wrong! Try again...");
+        }
+      }
+    }catch(err){
+      console.log(err);
+    }
+
+  }
   
   return (
     <div>
@@ -43,7 +82,7 @@ const AdminLogin = () => {
         <div className="form-group">
           <label>Email:</label>
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -59,9 +98,7 @@ const AdminLogin = () => {
         <div className="form-group">
           <button onClick={handleAdminLogin}>Submit</button>
           <button  className="openModalBtn"
-        onClick={() => {
-          setOtpModalOpen(true);
-        }}>Forgot Password</button>
+        onClick={ handleForgetPass}>Forgot Password</button>
         </div>
       </div>
     

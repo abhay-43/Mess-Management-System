@@ -82,7 +82,7 @@ const ProfileHeader = (props) => {
                 <div className='popupHead'>
                   {name && <h3><b>{name}</b></h3>}
                   <br />
-                  {regno && <h3><b>{regno}</b></h3>}
+                  {regno && <h4><b>{regno}</b></h4>}
                 </div>
                 <hr />
                 <div className='popupBottom'>

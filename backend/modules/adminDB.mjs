@@ -59,12 +59,12 @@ async function insertAD(Email, First_name, Last_name, Hostel, Password, responsi
         console.error(err);
       } 
     
-      const query = `SELECT email, first_name, last_name, hostel, responsibility FROM students WHERE email = $1 `;
+      const query = `SELECT email, first_name, last_name, hostel, responsibility FROM admins WHERE email = $1 `;
   
       try {
         const result = await client.query(query, [Email]);
         const data = {
-          reg_no : result.rows[0].email,
+          email : result.rows[0].email,
           first_name : result.rows[0].first_name,
           last_name : result.rows[0].last_name,
           hostel : result.rows[0].hostel,
@@ -94,7 +94,7 @@ async function insertAD(Email, First_name, Last_name, Hostel, Password, responsi
         const result = await client.query(query, [Email]);
         return result.rows[0][Parameter];
       } catch (err) {
-        console.log(err);
+        throw new DatabaseError("DATABASE ERROR :");
       } 
     }
 
@@ -109,7 +109,7 @@ async function insertAD(Email, First_name, Last_name, Hostel, Password, responsi
         console.error(err);
       } 
     
-      const query = `UPDATE students SET password = $1 WHERE email = $2`;
+      const query = `UPDATE admins SET password = $1 WHERE email = $2`;
   
       try {
         const pass = bcrypt.hashSync(password,salt);

@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { sendMail } from './modules/sendMail.mjs';
+import { sendMail, sendMailAdmin } from './modules/sendMail.mjs';
 import { connectDB } from './modules/dbConnect.mjs';
 import { insertSD, deleteSD, fetchSAD, fetchSD, changeSP } from './modules/studentDB.mjs';
 import { insertAD, deleteAD, fetchAAD, fetchAD, changeAP } from './modules/adminDB.mjs';
@@ -88,16 +88,33 @@ app.post('/sendOTP', async  function (req, res) {
   }
 });
 
+app.post('/sendOTPadmin', async  function (req, res) {
+  try{
+    const {email} = req.body;
+    const OTP = await sendMailAdmin(email);
+    if(OTP === undefined) { //if reg no doesn't exist then value of OTP will be undefined
+      res.send(false);
+    } 
+    forgetReqUser[email] = OTP;
+    const token = generateCookieToken(email);
+    res.cookie('id',token,{httpOnly: true, maxAge : fourHoursInMilliseconds, sameSite: 'None', secure: true });
+    res.send(true);
+  }catch(err){
+    console.log(err);
+  }
+});
+
 //verify OTP and update student password in database
 app.post('/verifyOTP', async  function (req, res) {
   try{
     const {newPassword, OTP} = req.body;
     const token = req.cookies.id;
-    const Reg_no = await decodeCookieToken(token);
-    const otpMatch = (forgetReqUser[Reg_no] == OTP);
+    const id = await decodeCookieToken(token);
+    const otpMatch = (forgetReqUser[id] == OTP);
     if(otpMatch){
-      await changeSP(newPassword, Reg_no);
-      delete forgetReqUser[Reg_no];
+      if(!id.includes('@')) await changeSP(newPassword, id);
+      else await changeAP(newPassword, id);
+      delete forgetReqUser[id];
       res.json({success : true}); 
     }else{
       res.json({success : false}); 
@@ -127,6 +144,17 @@ app.get('/studentData', async function (req, res) {
     //logic 
     const regno = await decodeCookieToken(id);
     const data = await fetchSAD(regno);
+    res.send(data);
+  }catch(err){
+    console.log(err);
+  }
+});
+
+app.get('/adminData', async function (req, res) {
+  try{
+    const id = req.cookies.id;
+    const email = await decodeCookieToken(id);
+    const data = await fetchAAD(email);
     res.send(data);
   }catch(err){
     console.log(err);

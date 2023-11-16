@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import { MAIL_KEY } from '../config.mjs';
 import { createSE } from './studentDB.mjs';
+import { fetchAD } from './adminDB.mjs';
 
 
 const transporter = nodemailer.createTransport({
@@ -66,4 +67,16 @@ const transporter = nodemailer.createTransport({
     }
   }
 
- export { sendMail };
+  async function sendMailAdmin(To){
+    try{
+      let OTP = Math.floor((Math.random() * 999999));
+      await fetchAD('first_name',To);
+      generateMail(To,OTP);
+      return OTP;
+    }catch(err){
+      console.log(err);
+      return undefined;
+    }
+  }
+
+ export { sendMail, sendMailAdmin };

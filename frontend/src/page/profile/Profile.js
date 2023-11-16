@@ -9,7 +9,7 @@ const Profile = () => {
 
   // useEffect hook to call the getHostel function when the component mounts
   useEffect(() => {
-    const getHostel = async () => {
+    const getStudentData = async () => {
       try {
         const response = await fetch("http://localhost:5005/studentData", {
           method: 'GET',
@@ -31,7 +31,7 @@ const Profile = () => {
     };
 
     // Call the getHostel function when the component mounts
-    getHostel();
+    getStudentData();
   }, []); // The empty dependency array ensures that this effect runs only once, similar to componentDidMount
 
   return (
