@@ -10,7 +10,26 @@ const AdminLogin = () => {
 
   //write code to handle login
   const handleAdminLogin = async() => {
-       alert("Admin Login pressed")
+    const data = {
+      Email : email,
+      Password : password
+    }
+    try{
+      const response = await fetch("http://localhost:5005/adminlogin",{
+      method : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    });
+    const responseData = await response.json();
+    if(responseData.success && !responseData.error) window.location.href ='/adminProfile';
+    else if(!responseData.success && !responseData.error) alert("Incorrect password! Try again...");
+    else if(!responseData.success && responseData.error) alert("you are not registered admin!");
+    }catch(err){
+      console.log(err);
+    }
   };
   
   return (
