@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import "./profileHeader.scss";
 import '../../modal/profilePopupModal/profilePopup.scss';
 
-const ProfileHeader = () => {
+const ProfileHeader = (props) => {
   // Initialize the navigate function from react-router-dom
   const navigate = useNavigate();
 
@@ -22,23 +22,9 @@ const ProfileHeader = () => {
   const [regno, setRegno] = useState('');
 
   const togglePopup = async() => {
-    try{
-      const response = await fetch("http://localhost:5005/studentData",{
-          method : 'GET',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              credentials: 'include'
-        });
-        const responseData = await response.json();
-        if(responseData){
-          setName(responseData.name || '');
-          setRegno(responseData.regno || '');;
-        }
+        setName(props.name);
+        setRegno(props.regno);
         setPopupOpen(!isPopupOpen);
-    }catch(err){
-      console.log(err);
-    }
   };
 
   const logout = async() => {

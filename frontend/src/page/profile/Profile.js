@@ -4,12 +4,14 @@ import ProfileHeader from '../../components/header/ProfileHeader';
 import "./Profile.scss"
 const Profile = () => {
   const [hostelName, setHostelName] = useState('');
+  const [name, setName] = useState('');
+  const [regno, setRegno] = useState('');
 
   // useEffect hook to call the getHostel function when the component mounts
   useEffect(() => {
     const getHostel = async () => {
       try {
-        const response = await fetch("http://localhost:5005/hostel", {
+        const response = await fetch("http://localhost:5005/studentData", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -19,7 +21,9 @@ const Profile = () => {
 
         const responseData = await response.json();
         if (responseData) {
-          setHostelName(responseData.name || '');
+          setHostelName(responseData.hostel || '');
+          setName(responseData.first_name+' '+responseData.last_name || '');
+          setRegno(responseData.reg_no || '');
         }
       } catch (err) {
         console.error(err);
@@ -32,7 +36,7 @@ const Profile = () => {
 
   return (
     <div>
-      <ProfileHeader  />
+      <ProfileHeader  name = {name} regno = {regno}/>
       <br />
       <h3>Name of the Hostel: {hostelName}</h3>
       <h3>Menu of the mess:</h3>

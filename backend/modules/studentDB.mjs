@@ -64,8 +64,36 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         await client.end();
       }
     }
-  
+
     //function for fetching student data from database
+    async function fetchSAD(Reg_no) {
+  
+      const select = `USE mms;`;
+      try {
+        const result = await client.query(select);
+        console.log("Database mms selected !");
+      } catch (err) {
+        console.error(err);
+      } 
+    
+      const query = `SELECT reg_no, first_name, last_name, hostel, responsibility FROM students WHERE Reg_no = $1 `;
+  
+      try {
+        const result = await client.query(query, [Reg_no]);
+        const data = {
+          reg_no : result.rows[0].reg_no,
+          first_name : result.rows[0].first_name,
+          last_name : result.rows[0].last_name,
+          hostel : result.rows[0].hostel,
+          responsibility : result.rows[0].responsibility
+        };
+        return data;
+      } catch (err) {
+        console.log(err);
+      } 
+    }
+  
+    //function for fetching student data from database with parameter
     async function fetchSD(Parameter, Reg_no) {
   
       const select = `USE mms;`;
@@ -82,8 +110,7 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         const result = await client.query(query, [Reg_no]);
         return result.rows[0][Parameter];
       } catch (err) {
-        // throw new DatabaseError("DATABASE ERROR :");
-        console.log(err);
+        throw new DatabaseError("DATABASE ERROR :");
       } 
     }
 
@@ -121,6 +148,7 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
         connectDB,
         insertSD,
         deleteSD,
+        fetchSAD,
         fetchSD,
         createSE,
         changeSP
