@@ -165,8 +165,7 @@ app.get('/adminData', async function (req, res) {
 //route to get all students data from a hostel 
 app.post('/hostel', async  function (req, res) {
     try{
-      // const { hostel } = req.body;
-      const hostel = 'Tandon';
+      const { hostel } = req.body;
       const obj = await getAllStudents(hostel);
       res.send(obj);
 

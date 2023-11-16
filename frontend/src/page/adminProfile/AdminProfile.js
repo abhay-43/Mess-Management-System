@@ -32,8 +32,6 @@ const AdminProfile = () => {
   const toggleProfile = () => {
     setOpenAddStudent(false);
     setOpenUpdatePassword(false);
-    // setName(props.name);
-    // setRegno(props.regno);
     setOpenProfile(!openProfile);
   };
 
@@ -98,12 +96,12 @@ const AdminProfile = () => {
           <h2><b>Mess Management_@MNNIT</b></h2>
         </div>
         <ul className={openHamburger ? "nav-items active" : "nav-items"}>
-          <li id='pfp1'>Profile</li>
-          <li>Contact</li>
-          <li>Details</li>
-          <li className='complaint-box' onClick={toggleAddStudent}>Add Student</li>
+          <li id='pfp1' className='link' onClick={toggleProfile}>Profile</li>
+          <li className='link'>Contact</li>
+          <li className='link'>Details</li>
+          <li className='complaint-box link' onClick={toggleAddStudent}>Add Student</li>
           {openAddStudent && <AddStudentForm />}
-          <div id="pfp2" className="profile-popup-container">
+          <div id="pfp2" className="profile-popup-container link">
             <li className="profile-button">
               <img src={images.people_first} alt='profile' onClick={toggleProfile} />
             </li>
@@ -131,7 +129,7 @@ const AdminProfile = () => {
       {openUpdatePassword && <UpdatePassModal setOpenUpdatePassword={setOpenUpdatePassword} />}
     </div>
     <div className='adminProfileBody'>
-        <SearchQueries hostel = {hostel}/>
+        {/* <SearchQueries hostel = {hostel}/> */}
     </div>
        
         <Footer/>
