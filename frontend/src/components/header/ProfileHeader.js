@@ -68,12 +68,12 @@ const ProfileHeader = (props) => {
           <h2><b>Mess Management_@MNNIT</b></h2>
         </div>
         <ul className={openHamburger ? "nav-items active" : "nav-items"}>
-          <li id='pfp1'>Profile</li>
-          <li>Contact</li>
-          <li>Details</li>
-          <li className='complaint-box' onClick={toggleComplaintBox}>Complain Box</li>
+          <li id='pfp1' className='link' onClick={toggleProfile} >Profile</li>
+          <li className='link'>Contact</li>
+          <li className='link'>Details</li>
+          <li className='complaint-box link' onClick={toggleComplaintBox}>Complain Box</li>
           {openComplaintBox && <ComplaintBoxForm />}
-          <div id="pfp2" className="profile-popup-container">
+          <div id="pfp2" className="profile-popup-container link">
             <li className="profile-button">
               <img src={images.people_first} alt='profile' onClick={toggleProfile} />
             </li>

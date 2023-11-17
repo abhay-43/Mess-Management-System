@@ -1,23 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './searchQuery.scss';
 import { images } from '../../images';
 
-const mockData = [
-  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' },
-  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' },
-  { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' }
-  // Add more data as needed
-];
-
-const SearchQueries = () => {
+ 
+const SearchQueries = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const filteredData = mockData.filter((student) =>
+  const [studentsData, setStudentsData] = useState([]);
+  
+  
+  const filteredData = studentsData.filter((student) =>
     Object.values(student).some(
       (value) =>
         typeof value === 'string' &&
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+  useEffect( () => {
+    const getAllStudents = async () => {
+      try {
+        const data = {
+          hostel : props.hostel
+        }
+        const response = await fetch("http://localhost:5005/hostel", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body : JSON.stringify(data)
+        });
+        const responseData = await response.json();
+        console.log(responseData)
+        setStudentsData(responseData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const fetchData = async () =>{
+      await getAllStudents();
+    };
+    fetchData();
+  }, [props.hostel]); 
+  
 
   return (
     <div className="search-queries">
@@ -32,9 +57,9 @@ const SearchQueries = () => {
       <div className="card-container">
         {filteredData.map((student) => (
           <div key={student.reg_no} className="student-card">
-            <h3>{student.first_name + " " + student.last_name}</h3>
-            <p>{student.reg_no}</p>
-            <p>{student.responsibility}</p>
+            <h3>Name: {student.first_name + " " + student.last_name}</h3>
+            <p><b>Reg.No:</b> {student.reg_no}</p>
+            <h4><b>Responsibility:</b> {student.responsibility}</h4>
             <img src={images.delete} alt="delete" />
           </div>
         ))}

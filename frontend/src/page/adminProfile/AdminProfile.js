@@ -7,8 +7,8 @@ import '../../modal/profilePopupModal/profilePopup.scss';
 import UpdatePassModal from '../../modal/updateModal/UpdatePassModal';
 import AddStudentForm from '../../modal/studentAddModal/AddStudent';
 import './adminProfile.scss'
-import SearchQueries from './SearchQuery';
-
+import SearchQueries from './SearchQuery'
+import './searchQuery.scss';
 
 
 const AdminProfile = () => {
@@ -19,6 +19,8 @@ const AdminProfile = () => {
   const [openAddStudent, setOpenAddStudent] = useState(false);
   const [name, setName] = useState('');
   const [responsibility, setResponsibility] = useState('');
+  const [hostel, setHostel] = useState('');
+
 
   const toggleHamburger = (e) => {
     e.preventDefault();
@@ -31,8 +33,6 @@ const AdminProfile = () => {
   const toggleProfile = () => {
     setOpenAddStudent(false);
     setOpenUpdatePassword(false);
-    // setName(props.name);
-    // setRegno(props.regno);
     setOpenProfile(!openProfile);
   };
 
@@ -47,7 +47,8 @@ const AdminProfile = () => {
     setOpenAddStudent(!openAddStudent);
   };
 
-  useEffect(() => {
+
+  useEffect( () => {
     const getAdminData = async () => {
       try {
         const response = await fetch("http://localhost:5005/adminData", {
@@ -62,14 +63,17 @@ const AdminProfile = () => {
         if (responseData) {
           setName(responseData.first_name+' '+responseData.last_name || '');
           setResponsibility(responseData.responsibility+' ('+responseData.hostel+')' || '');
+          setHostel(responseData.hostel || '');
         }
       } catch (err) {
         console.error(err);
       }
     };
-
-    // Call the getHostel function when the component mounts
-    getAdminData();
+    
+    const fetchData = async () =>{
+      await getAdminData();
+    };
+    fetchData();
   }, []);
 
   const logout = async () => {
@@ -98,12 +102,12 @@ const AdminProfile = () => {
           <h2><b>Mess Management_@MNNIT</b></h2>
         </div>
         <ul className={openHamburger ? "nav-items active" : "nav-items"}>
-          <li id='pfp1'>Profile</li>
-          <li>Contact</li>
-          <li>Details</li>
-          <li className='complaint-box' onClick={toggleAddStudent}>Add Student</li>
+          <li id='pfp1' className='link' onClick={toggleProfile}>Profile</li>
+          <li className='link'>Contact</li>
+          <li className='link'>Details</li>
+          <li className='complaint-box link' onClick={toggleAddStudent}>Add Student</li>
           {openAddStudent && <AddStudentForm />}
-          <div id="pfp2" className="profile-popup-container">
+          <div id="pfp2" className="profile-popup-container link">
             <li className="profile-button">
               <img src={images.people_first} alt='profile' onClick={toggleProfile} />
             </li>
@@ -131,9 +135,8 @@ const AdminProfile = () => {
       {openUpdatePassword && <UpdatePassModal setOpenUpdatePassword={setOpenUpdatePassword} />}
     </div>
     <div className='adminProfileBody'>
-        <SearchQueries />
+        <SearchQueries hostel ={hostel}/>
     </div>
-       
         <Footer/>
     </div>
   )

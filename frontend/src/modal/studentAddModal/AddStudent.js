@@ -17,11 +17,35 @@ const AddStudentForm = ({ setAddStudentModal }) => {
     setStudentInfo({ ...studentInfo, [field]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if(studentInfo.regNo == '' || studentInfo.firstName == '' || studentInfo.lastName == '' ||
+       studentInfo.hostel == '' || studentInfo.responsibility == '' || studentInfo.password == '' ){
+        alert("Form field can't be empty!!!");
+        return;
+       }
     // Add your logic to handle form submission
-    console.log('Student info submitted:', studentInfo);
-    setAddStudentModal(false);
+    try {
+      const response = await fetch("http://localhost:5005/addStudents", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(studentInfo)
+      });
+
+      const responseData = await response.json();
+      if (responseData.success){
+        alert(`Student data with reg.no. ${studentInfo.regNo} stored successfully!`)
+      }else{
+        alert(`Error Occured in DB, Data doesn't stored!`)
+      }
+      window.location.reload();
+    } catch (err) {
+      alert(`Unknown Error Occured...Try again!`)
+      console.error(err);
+    }
   };
 
   return (
@@ -75,6 +99,7 @@ const AddStudentForm = ({ setAddStudentModal }) => {
           <input
             type="password"
             id="password"
+            placeholder='DOB : DDMMYYYY'
             value={studentInfo.password}
             onChange={(e) => handleInputChange('password', e.target.value)}
           />
@@ -87,10 +112,10 @@ const AddStudentForm = ({ setAddStudentModal }) => {
             onChange={(e) => handleInputChange('responsibility', e.target.value)}
           >
             <option value="">Select Responsibility</option>
-            <option value="Monitor">Mess Manager</option>
-            <option value="Prefect">Mess Secreatary</option>
-            <option value="Member">Mess Member</option>
-            <option value="Member">None</option>
+            <option value="Mess Manager">Mess Manager</option>
+            <option value="Mess Secreatary">Mess Secreatary</option>
+            <option value="Mess Member">Mess Member</option>
+            <option value="None">None</option>
           </select>
         </div>
         <button type="submit">Add Student</button>
