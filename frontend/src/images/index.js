@@ -16,6 +16,7 @@ export const images = {
   pinterest: require("./icon-pinterest.svg").default,
   insta: require("./icon-instagram.svg").default,
   footer: require("./bg-pattern-footer-desktop.svg").default,
+  delete: require("./delete_mess.svg").default,
   footer_mob: require("./bg-pattern-footer-mobile.svg").default,
   hamburger: require("./icon-hamburger.svg").default,
 };

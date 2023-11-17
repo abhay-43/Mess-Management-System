@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './searchQuery.scss';
+import { images } from '../../images';
 
 const mockData = [
   { reg_no: '20214006', first_name: 'John', last_name: 'Doe', responsibility: 'churan' },
@@ -34,6 +35,7 @@ const SearchQueries = () => {
             <h3>{student.first_name + " " + student.last_name}</h3>
             <p>{student.reg_no}</p>
             <p>{student.responsibility}</p>
+            <img src={images.delete} alt="delete" />
           </div>
         ))}
       </div>
