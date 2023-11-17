@@ -190,12 +190,29 @@ app.post('/addStudents', async  function (req, res) {
   }
 });
 
+  //route to delete students data from database 
+  app.post('/delStudents', async  function (req, res) {
+    const token = req.cookies.id;
+    const id = await decodeCookieToken(token);
+    if(id.includes('@')){
+      try{
+        const { regNo } = req.body;
+        await deleteSD(regNo);
+        res.json({success : true}); 
+      }catch(err){
+        res.json({success : false}); 
+        console.log(err);
+      }
+    }
+  });
+
   
 app.get('/', async  function (req, res) {
     // const data = await insertAD('babujames0007@gmail.com','James', 'Bond', 'Tandon', '123456', 'Warden');
     // res.send(data);
     // const data = await getAllStudents('Malviya');
     // res.send(data);
+    // await deleteSD('');
     
 });
 
