@@ -16,6 +16,34 @@ const SearchQueries = (props) => {
     )
   );
 
+  const delStudents = async(regNo)=>{
+    if(window.confirm(`Do you want to remove student with reg.no. ${regNo}?`)){
+      try {
+        const data = {
+          regNo : regNo
+        }
+        const response = await fetch("http://localhost:5005/delStudents", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body : JSON.stringify(data)
+        });
+        const responseData = await response.json();
+        if (responseData.success){
+          alert(`Student with reg.no. ${regNo} removed successfully!`)
+        }else{
+          alert(`Error Occured in DB, Data doesn't removed!`)
+        }
+        window.location.reload();
+      } catch (err) {
+        alert(`Unknown Error Occured...Try again!`)
+        console.error(err);
+      }
+    }
+  }
+
   useEffect( () => {
     const getAllStudents = async () => {
       try {
@@ -31,7 +59,6 @@ const SearchQueries = (props) => {
           body : JSON.stringify(data)
         });
         const responseData = await response.json();
-        console.log(responseData)
         setStudentsData(responseData);
       } catch (err) {
         console.error(err);
@@ -58,17 +85,14 @@ const SearchQueries = (props) => {
         {filteredData.map((student) => (
           <div key={student.reg_no} className="student-card">
     <div className='reg_delete'>
-        <h3>Name:</h3>
-        <p>{student.first_name + " " + student.last_name}</p>
+        <h3><b>Name:</b> {student.first_name + " " + student.last_name}</h3>
     </div>
     <div className='reg_delete'>
-        <h3>Reg.No:</h3>
-        <p>{student.reg_no}</p>
-        <img src={images.delete} alt="delete" className="delete-icon" />
+        <h3><b>Reg.No:</b> {student.reg_no}</h3>
+        <img src={images.delete} alt="delete" className="delete-icon" onClick={async() => await delStudents(student.reg_no)}/>
     </div>
     <div className='reg_delete'>
-        <h3>Responsibility:</h3>
-        <p>{student.responsibility}</p>
+        <h3><b>Responsibility:</b> {student.responsibility}</h3>
     </div>
 </div>
 
