@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./header.scss";
-import { images } from "../../images";
+import { images } from "../../../images";
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {

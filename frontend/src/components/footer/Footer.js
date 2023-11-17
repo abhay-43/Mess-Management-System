@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Footer.scss";
+import "./footer.scss";
 import { images } from '../../images';
 
 // Footer component
@@ -28,10 +28,10 @@ const Footer = () => {
               </div>
               {/* Social Media Icons */}
               <div className='social-media-icons'>
-                <img src={images.fb} alt=""/>
-                <img src={images.twitter} alt=""/>
-                <img src={images.insta} alt=""/>
-                <img src={images.pinterest} alt=""/>
+                <img className="delete-icon" src={images.fb} alt=""/>
+                <img className="delete-icon" src={images.twitter} alt=""/>
+                <img className="delete-icon" src={images.insta} alt=""/>
+                <img className="delete-icon" src={images.pinterest} alt=""/>
               </div>
             </div>
 

@@ -1,8 +1,8 @@
 import React from "react";
-import Hero from "../../components/hero/Hero";
-import Info from "../../components/info/Info";
+import Hero from "../../components/body/homeBody/HomeBody";
+import Info from "../../components/body/info/Info";
 import Banner from "../../components/banner/Banner";
-import Header from "../../components/header/Header";
+import Header from "../../components/header/homeHeader/Header";
 import Footer from "../../components/footer/Footer";
 
 

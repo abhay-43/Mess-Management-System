@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { images } from '../../images';
+import { images } from '../../../images';
 import { useNavigate } from 'react-router-dom';
-import './profileHeader.scss';
-import '../../modal/profilePopupModal/profilePopup.scss';
-import UpdatePassModal from '../../modal/updateModal/UpdatePassModal';
-import ComplaintBoxForm from './ComplaintBoxForm';
+import './studentHeader.scss';
+import '../../../scss/profilePopup.scss';
+import UpdatePassModal from '../../../modal/updatePasswordModal/UpdatePasswordModal';
+import ComplaintBoxForm from '../../complaintBoxPopup/ComplaintBoxPopup';
 
 const ProfileHeader = (props) => {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ const ProfileHeader = (props) => {
           <li className='link'>Details</li>
           <li className='complaint-box link' onClick={toggleComplaintBox}>Complain Box</li>
           {openComplaintBox && <ComplaintBoxForm />}
-          <div id="pfp2" className="profile-popup-container link">
+          <div id="pfp2" className="profile-popup-container">
             <li className="profile-button">
               <img src={images.people_first} alt='profile' onClick={toggleProfile} />
             </li>

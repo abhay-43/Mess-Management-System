@@ -1,10 +1,10 @@
 import React from "react";
 import "./scss/main.scss";
 import Home from "./page/home/Home";
-import Login from "./page/Login/Login";
+import Login from "./page/studentLogin/StudentLogin";
 import {BrowserRouter as Router, Route,Routes } from "react-router-dom";
-import Profile from "./page/profile/Profile";
-import AdminLogin from "./page/AdminLogin/AdminLogin";
+import Profile from "./page/studentProfile/StudentProfile";
+import AdminLogin from "./page/adminLogin/AdminLogin";
 import AdminProfile from "./page/adminProfile/AdminProfile";
 
 

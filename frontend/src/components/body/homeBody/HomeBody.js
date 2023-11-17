@@ -1,5 +1,5 @@
 import React from 'react';
-import './Hero.scss';
+import './homeBody.scss';
 
 const Hero = () => {
   return (

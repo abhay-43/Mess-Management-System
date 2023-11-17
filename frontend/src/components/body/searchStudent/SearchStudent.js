@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './searchQuery.scss';
-import { images } from '../../images';
+import './searchStudent.scss';
+import { images } from '../../../images';
 
  
 const SearchQueries = (props) => {

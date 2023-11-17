@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
-import ForgetModal from '../../modal/forgetModal/ForgetModal';
-import OtpModal from '../../modal/otpModal/OtpModal';
+import ForgetModal from '../../modal/forgetPasswordModal/ForgetPasswordModal';
+import OtpModal from '../../modal/otpVerificationModal/OtpVerificationModal';
 
 
 const AdminLogin = () => {

@@ -1,7 +1,7 @@
 // HostelTable.js
 
 import React from 'react';
-import './Info.scss';
+import './info.scss';
 
 const HostelTable = () => {
   // Sample data for hostels

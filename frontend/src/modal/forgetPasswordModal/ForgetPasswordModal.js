@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import "./forgetModal.scss"
+import "./forgetPasswordModal.scss"
 const ForgetModal = ({setOpenModal , setOtpModalOpen}) => {
     const [regNumber, setRegNumber] = useState('');
 

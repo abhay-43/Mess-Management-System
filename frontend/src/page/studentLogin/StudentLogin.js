@@ -1,10 +1,10 @@
 // Login.js
 
 import React, { useState } from 'react';
-import ForgetModal from '../../modal/forgetModal/ForgetModal';
-import OtpModal from '../../modal/otpModal/OtpModal';
+import ForgetModal from '../../modal/forgetPasswordModal/ForgetPasswordModal';
+import OtpModal from '../../modal/otpVerificationModal/OtpVerificationModal';
 
-import './login.scss';
+import './studentLogin.scss';
 
 const Login = () => {
   const [optModalOpen,setOtpModalOpen]=useState(false);
