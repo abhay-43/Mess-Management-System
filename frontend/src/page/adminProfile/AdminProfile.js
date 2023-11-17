@@ -7,8 +7,8 @@ import '../../modal/profilePopupModal/profilePopup.scss';
 import UpdatePassModal from '../../modal/updateModal/UpdatePassModal';
 import AddStudentForm from '../../modal/studentAddModal/AddStudent';
 import './adminProfile.scss'
-import SearchQueries from './SearchQuery';
-
+import SearchQueries from './SearchQuery'
+import './searchQuery.scss';
 
 
 const AdminProfile = () => {
@@ -20,6 +20,7 @@ const AdminProfile = () => {
   const [name, setName] = useState('');
   const [responsibility, setResponsibility] = useState('');
   const [hostel, setHostel] = useState('');
+
 
   const toggleHamburger = (e) => {
     e.preventDefault();
@@ -46,6 +47,7 @@ const AdminProfile = () => {
     setOpenAddStudent(!openAddStudent);
   };
 
+
   useEffect( () => {
     const getAdminData = async () => {
       try {
@@ -61,13 +63,17 @@ const AdminProfile = () => {
         if (responseData) {
           setName(responseData.first_name+' '+responseData.last_name || '');
           setResponsibility(responseData.responsibility+' ('+responseData.hostel+')' || '');
-          setHostel(responseData.hostel);
+          setHostel(responseData.hostel || '');
         }
       } catch (err) {
         console.error(err);
       }
     };
-     getAdminData();
+    
+    const fetchData = async () =>{
+      await getAdminData();
+    };
+    fetchData();
   }, []);
 
   const logout = async () => {
@@ -129,9 +135,8 @@ const AdminProfile = () => {
       {openUpdatePassword && <UpdatePassModal setOpenUpdatePassword={setOpenUpdatePassword} />}
     </div>
     <div className='adminProfileBody'>
-        {/* <SearchQueries hostel = {hostel}/> */}
+        <SearchQueries hostel ={hostel}/>
     </div>
-       
         <Footer/>
     </div>
   )

@@ -31,7 +31,10 @@ const Profile = () => {
     };
 
     // Call the getStudentData function when the component mounts
-    getStudentData();
+    const fetchData = async ()=>{
+      await getStudentData();
+    };
+    fetchData();
   }, []); // The empty dependency array ensures that this effect runs only once, similar to componentDidMount
 
   return (

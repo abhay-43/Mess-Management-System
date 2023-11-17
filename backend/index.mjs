@@ -174,6 +174,22 @@ app.post('/hostel', async  function (req, res) {
     }
   });
 
+  //route to store students data into database 
+app.post('/addStudents', async  function (req, res) {
+  const token = req.cookies.id;
+  const id = await decodeCookieToken(token);
+  if(id.includes('@')){
+    try{
+      const { regNo, firstName, lastName, hostel, password, responsibility } = req.body;
+      await insertSD(regNo, firstName, lastName, hostel, password, responsibility);
+      res.json({success : true}); 
+    }catch(err){
+      res.json({success : false}); 
+      console.log(err);
+    }
+  }
+});
+
   
 app.get('/', async  function (req, res) {
     // const data = await insertAD('babujames0007@gmail.com','James', 'Bond', 'Tandon', '123456', 'Warden');

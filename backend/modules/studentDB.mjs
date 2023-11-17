@@ -23,7 +23,8 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
       const result = await client.query(query, [Reg_no, First_name, Last_name, Hostel, pass, responsibility]);
       console.log("Data stored in student Table !");
     } catch (err) {
-      console.error(err);
+      throw new DatabaseError("DATABASE ERROR :");
+      
     }
   }
   
