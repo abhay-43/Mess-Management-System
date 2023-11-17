@@ -1,7 +1,4 @@
-img {
-    width: 16px;
-    height: 16px;
-}
+
 
 .search-queries {
     width: 400px; /* Adjust the width as needed */
@@ -11,6 +8,7 @@ img {
     border-radius: 10px;
     margin: 20px;
     padding: 20px;
+
   
     .search-bar {
       margin-bottom: 15px;
@@ -36,6 +34,19 @@ img {
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   
+
+        .reg_delete {
+          display: flex;
+          align-items: center; /* Align items vertically in the same line */
+      }
+
+      .delete-icon {
+          width: 24px;
+          height: 24px;
+          margin-left: 160px; /* Add margin to separate the delete icon from registration number */
+          cursor: pointer; /* Add this if the delete icon is clickable */
+      }
+
         h3 {
           font-size: 16px;
           font-weight: bold;
@@ -48,5 +59,12 @@ img {
         }
       }
     }
+
+    @media only screen and (max-width: 600px) {
+      .card-container {
+          grid-template-columns: 1fr; /* Change to a single column on smaller screens */
+      }
+    }
+
   }
   

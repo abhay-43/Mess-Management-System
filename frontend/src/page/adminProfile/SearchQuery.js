@@ -57,11 +57,21 @@ const SearchQueries = (props) => {
       <div className="card-container">
         {filteredData.map((student) => (
           <div key={student.reg_no} className="student-card">
-            <h3>Name: {student.first_name + " " + student.last_name}</h3>
-            <p><b>Reg.No:</b> {student.reg_no}</p>
-            <h4><b>Responsibility:</b> {student.responsibility}</h4>
-            <img src={images.delete} alt="delete" />
-          </div>
+    <div className='reg_delete'>
+        <h3>Name:</h3>
+        <p>{student.first_name + " " + student.last_name}</p>
+    </div>
+    <div className='reg_delete'>
+        <h3>Reg.No:</h3>
+        <p>{student.reg_no}</p>
+        <img src={images.delete} alt="delete" className="delete-icon" />
+    </div>
+    <div className='reg_delete'>
+        <h3>Responsibility:</h3>
+        <p>{student.responsibility}</p>
+    </div>
+</div>
+
         ))}
       </div>
     </div>
