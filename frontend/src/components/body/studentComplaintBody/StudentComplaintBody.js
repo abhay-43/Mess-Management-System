@@ -1,6 +1,6 @@
 // ComplaintBody.js
 import React, { useState, useEffect } from 'react';
- import './studentComplaintBody.scss';
+import './studentComplaintBody.scss';
 
 const ComplaintBody = ({ complaints }) => {
   const [filteredComplaints, setFilteredComplaints] = useState(complaints);
@@ -10,6 +10,7 @@ const ComplaintBody = ({ complaints }) => {
   const handleFilter = (status) => {
     let filteredList = complaints;
 
+    // Apply status filter
     if (status === 'solved') {
       filteredList = complaints.filter((complaint) => complaint.solved);
     } else if (status === 'unsolved') {
@@ -22,11 +23,18 @@ const ComplaintBody = ({ complaints }) => {
     setFilterStatus(status); // Update the current filter status
   };
 
-  const toggleStatus = (id) => {
+  const handleUpvote = (id) => {
     const updatedComplaints = complaints.map((complaint) =>
-      complaint.id === id ? { ...complaint, solved: !complaint.solved } : complaint
+      complaint.id === id ? { ...complaint, upvotes: complaint.upvotes + 1 } : complaint
     );
-    handleFilter(filterStatus); // Reapply the filter after toggling the status
+    handleFilter(filterStatus); // Reapply the filter after upvoting
+  };
+
+  const handleDownvote = (id) => {
+    const updatedComplaints = complaints.map((complaint) =>
+      complaint.id === id ? { ...complaint, downvotes: complaint.downvotes + 1 } : complaint
+    );
+    handleFilter(filterStatus); // Reapply the filter after downvoting
   };
 
   useEffect(() => {
@@ -62,10 +70,13 @@ const ComplaintBody = ({ complaints }) => {
               <h3>{complaint.title}</h3>
               <p>{complaint.text}</p>
               <p>Student: {complaint.studentName}</p>
+              <p>Upvotes: {complaint.upvotes}</p>
+              <p>Downvotes: {complaint.downvotes}</p>
             </div>
-            <button onClick={() => toggleStatus(complaint.id)}>
-              {complaint.solved ? 'Mark Unsolved' : 'Mark Solved'}
-            </button>
+            <div>
+              <button onClick={() => handleUpvote(complaint.id)}>Upvote</button>
+              <button onClick={() => handleDownvote(complaint.id)}>Downvote</button>
+            </div>
           </li>
         ))}
       </ul>
