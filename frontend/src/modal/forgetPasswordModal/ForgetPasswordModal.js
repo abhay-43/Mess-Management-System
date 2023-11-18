@@ -51,6 +51,7 @@ const ForgetModal = ({setOpenModal , setOtpModalOpen}) => {
               type="text"
               value={regNumber}
               onChange={(e) => setRegNumber(e.target.value)}
+              required
              />
          </div>
          <div className="footer">

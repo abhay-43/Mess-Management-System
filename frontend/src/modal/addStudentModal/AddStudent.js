@@ -19,11 +19,6 @@ const AddStudentForm = ({ setAddStudentModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(studentInfo.regNo == '' || studentInfo.firstName == '' || studentInfo.lastName == '' ||
-       studentInfo.hostel == '' || studentInfo.responsibility == '' || studentInfo.password == '' ){
-        alert("Form field can't be empty!!!");
-        return;
-       }
     // Add your logic to handle form submission
     try {
       const response = await fetch("http://localhost:5005/addStudents", {
@@ -59,6 +54,7 @@ const AddStudentForm = ({ setAddStudentModal }) => {
             id="regNo"
             value={studentInfo.regNo}
             onChange={(e) => handleInputChange('regNo', e.target.value.replace(/\D/, ''))}
+            required
           />
         </div>
         <div className="form-group">
@@ -68,6 +64,7 @@ const AddStudentForm = ({ setAddStudentModal }) => {
             id="firstName"
             value={studentInfo.firstName}
             onChange={(e) => handleInputChange('firstName', e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -85,6 +82,7 @@ const AddStudentForm = ({ setAddStudentModal }) => {
             id="hostel"
             value={studentInfo.hostel}
             onChange={(e) => handleInputChange('hostel', e.target.value)}
+            required
           >
             <option value="">Select Hostel</option>
             {hostelOptions.map((hostel, index) => (
@@ -102,6 +100,7 @@ const AddStudentForm = ({ setAddStudentModal }) => {
             placeholder='DOB : DDMMYYYY'
             value={studentInfo.password}
             onChange={(e) => handleInputChange('password', e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -110,6 +109,7 @@ const AddStudentForm = ({ setAddStudentModal }) => {
             id="responsibility"
             value={studentInfo.responsibility}
             onChange={(e) => handleInputChange('responsibility', e.target.value)}
+            required
           >
             <option value="">Select Responsibility</option>
             <option value="Mess Manager">Mess Manager</option>

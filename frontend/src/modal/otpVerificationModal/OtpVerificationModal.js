@@ -54,7 +54,7 @@ const OtpModal = ({setOtpModalOpen}) => {
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-
+              required
              />
         </div>
         <div className='confirm-password'>
@@ -63,7 +63,7 @@ const OtpModal = ({setOtpModalOpen}) => {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-
+              required
              />
         </div>
         <div className='OTP'>
@@ -72,7 +72,7 @@ const OtpModal = ({setOtpModalOpen}) => {
               type="text"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-
+              required
              />
         </div>
         <div className="footer">

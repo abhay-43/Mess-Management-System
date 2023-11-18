@@ -50,6 +50,7 @@ const Login = () => {
             type="text"
             value={registrationNumber}
             onChange={(e) => setRegistrationNumber(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -58,6 +59,7 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">

@@ -6,11 +6,7 @@ const UpdatePassModal = ({setOpenUpdatePassword}) => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const updatePassword= async()=>{
-      if(oldPassword === ''){
-        alert(`Old password can't be empty!`);
-        return;
-      }
-      if(newPassword === '' || confirmPassword === '' || newPassword !== confirmPassword){
+      if( newPassword !== confirmPassword){
         alert(`Password can't confirmed!`);
         return;
       }
@@ -55,7 +51,7 @@ const UpdatePassModal = ({setOpenUpdatePassword}) => {
            type="password"
            value={oldPassword}
            onChange={(e) => setOldPassword(e.target.value)}
-
+           required
           />
      </div>
      <div className='new-password'>
@@ -64,7 +60,7 @@ const UpdatePassModal = ({setOpenUpdatePassword}) => {
            type="password"
            value={newPassword}
            onChange={(e) => setNewPassword(e.target.value)}
-
+           required
           />
      </div>
      <div className='confirm-password'>
@@ -73,7 +69,7 @@ const UpdatePassModal = ({setOpenUpdatePassword}) => {
            type="password"
            value={confirmPassword}
            onChange={(e) => setConfirmPassword(e.target.value)}
-
+           required
           />
      </div>
     
