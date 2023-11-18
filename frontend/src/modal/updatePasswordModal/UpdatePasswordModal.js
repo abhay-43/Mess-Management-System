@@ -5,9 +5,37 @@ const UpdatePassModal = ({setOpenUpdatePassword}) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const updatePassword= ()=>{
-         
+    const updatePassword= async()=>{
+      if(oldPassword === ''){
+        alert(`Old password can't be empty!`);
+        return;
+      }
+      if(newPassword === '' || confirmPassword === '' || newPassword !== confirmPassword){
+        alert(`Password can't confirmed!`);
+        return;
+      }
+      setOpenUpdatePassword(false);
+      try {
+        const data = {
+          old_password: oldPassword,
+          new_password: newPassword
+        }
+        const response = await fetch("http://localhost:5005/changePass", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify(data)
+        });
+        const responseData = await response.json();
+        alert(responseData.message);
+
+    }catch(err){
+      console.log(err);
     }
+    }
+    
   return (
     <div className="modalBackground">
     <div className="modalContainer">

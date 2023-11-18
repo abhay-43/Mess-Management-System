@@ -58,7 +58,7 @@ const AddStudentForm = ({ setAddStudentModal }) => {
             type="text"
             id="regNo"
             value={studentInfo.regNo}
-            onChange={(e) => handleInputChange('regNo', e.target.value)}
+            onChange={(e) => handleInputChange('regNo', e.target.value.replace(/\D/, ''))}
           />
         </div>
         <div className="form-group">
