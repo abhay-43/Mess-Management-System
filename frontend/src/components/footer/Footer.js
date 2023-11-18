@@ -1,5 +1,5 @@
 import React from 'react';
-import "./footer.scss";
+import "./Footer.scss";
 import { images } from '../../images';
 
 // Footer component

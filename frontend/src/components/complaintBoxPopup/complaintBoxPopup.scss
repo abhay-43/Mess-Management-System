@@ -1,61 +1,71 @@
-.complaint-box-form {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px; /* Adjust the width as needed */
-  max-width: 80%;
-  padding: 30px;
-  background-color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  text-align: center;
+// ComplaintBody.scss
+.complaint-box {
+  margin: 20px;
+  width: 70%;
+  margin-left: auto; /* Align the complaint box to the right */
 
-  h2 {
-    margin-bottom: 20px;
-    font-weight: bold;
+  .filter-buttons {
+    margin-bottom: 10px;
+
+    button {
+      margin-right: 10px;
+    }
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
+  .search-bar {
+    margin-bottom: 10px;
 
-    .form-group {
-      margin-bottom: 20px;
+    input {
+      padding: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
 
-      label {
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #010101; /* Adjust the color as needed */
-        display: block;
+  .complaint-list {
+    list-style-type: none;
+    padding: 0;
+    max-height: 500px; /* Set your desired max height */
+    overflow-y: auto; /* Add scrollbars when content exceeds the max height */
+
+    .complaint-token {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &.solved {
+        background-color: #d4edda; // Light green for solved complaints
       }
 
-      textarea {
-        width: 100%;
-        padding: 15px;
-        border: 2px solid #ddd;
-        border-radius: 10px;
-        resize: vertical;
-        font-size: 16px;
+      &.unsolved {
+        background-color: #f8d7da; // Light red for unsolved complaints
       }
 
-      input[type="file"] {
-        margin-top: 15px;
+      .complaint-details {
+        flex: 1;
+
+        h3 {
+          margin-bottom: 5px;
+        }
+
+        p {
+          margin: 0;
+        }
       }
 
       button {
-        padding: 15px;
-        margin-top: 20px;
         cursor: pointer;
+        padding: 5px 10px;
+        background-color: #007bff;
         color: #fff;
         border: none;
-        border-radius: 10px;
-        background-color: #3498db;
-        font-size: 18px;
-        transition: background-color 0.3s ease;
+        border-radius: 3px;
 
         &:hover {
-          background-color: #2980b9;
+          background-color: #0056b3;
         }
       }
     }
