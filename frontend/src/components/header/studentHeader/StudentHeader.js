@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './studentHeader.scss';
 import '../../../scss/profilePopup.scss';
 import UpdatePassModal from '../../../modal/updatePasswordModal/UpdatePasswordModal';
-import ComplaintBoxForm from '../../complaintBoxPopup/ComplaintBoxPopup';
+import ComplaintBoxForm from '../../../modal/complaintBoxModal/ComplaintBoxModal';
 
 const ProfileHeader = (props) => {
   const navigate = useNavigate();

@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Footer from '../../components/footer/Footer';
 import ProfileHeader from '../../components/header/studentHeader/StudentHeader';
 import "./studentProfile.scss"
+import ComplaintBody from '../../components/body/studentComplaintBody/StudentComplaintBody';
 const Profile = () => {
+
+  const complaints = [
+    { id: 1, title: 'Issue 1', text: 'Description of Issue 1', studentName: 'Aamir', solved: true },
+    { id: 2, title: 'Issue 2', text: 'Description of Issue 2', studentName: 'Bhnau', solved: false },
+    { id: 3, title: 'Issue 3', text: 'Description of Issue 3', studentName: 'Abhay', solved: true },
+    { id: 4, title: 'Issue 4', text: 'Description of Issue 4', studentName: 'Ankit', solved: false },
+    { id: 5, title: 'Issue 5', text: 'Description of Issue 5', studentName: 'Johnny', solved: true },
+    { id: 6, title: 'Issue 6', text: 'Description of Issue 6', studentName: 'Abhay', solved: false },
+  ];
   const [hostelName, setHostelName] = useState('');
   const [name, setName] = useState('');
   const [regno, setRegno] = useState('');
@@ -42,7 +52,9 @@ const Profile = () => {
       <ProfileHeader  name = {name} regno = {regno}/>
       <br />
       <div className='profileBody'>
-      <h3>Name of the Hostel: {hostelName} Hostel</h3>
+      <ComplaintBody complaints={complaints} />
+      {/* <h3>Name of the Hostel: {hostelName} Hostel</h3> */}
+
       </div>
 
       <Footer />
