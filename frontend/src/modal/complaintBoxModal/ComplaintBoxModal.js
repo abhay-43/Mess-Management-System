@@ -19,6 +19,7 @@ const ComplaintBoxForm = ({setOpenComplaintBox}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(complaint);
     setOpenComplaintBox(false);
   };
 
@@ -41,6 +42,7 @@ const ComplaintBoxForm = ({setOpenComplaintBox}) => {
             id="description"
             value={complaint.description}
             onChange={handleDescriptionChange}
+            required
           />
         </div>
         <button type="submit">Submit Complaint</button>

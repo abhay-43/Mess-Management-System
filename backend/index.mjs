@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 connectDB();
 
 
-const Users = {};
 //login router handler for students
 app.post('/login', async function (req, res) {
   try{
@@ -31,12 +30,8 @@ app.post('/login', async function (req, res) {
     const pass = await fetchSD('password',Reg_no);
     const passwordMatch = bcrypt.compareSync(Password, pass);
     if(passwordMatch){
-        // const role = await fetchSD('responsibility',Reg_no);
         const token = generateCookieToken(Reg_no);
         res.cookie('id',token,{httpOnly: true, maxAge : fourHoursInMilliseconds, sameSite: 'None', secure: true });
-        Users[req.cookies.id] = {
-          login : true
-        }
         res.json({success : true, error : false}); 
     }else{
         res.json({success : false, error : false});
@@ -54,12 +49,9 @@ app.post('/adminlogin', async function (req, res) {
     const pass = await fetchAD('password',Email);
     const passwordMatch = bcrypt.compareSync(Password, pass);
     if(passwordMatch){
-        // const role = await fetchSD('responsibility',Reg_no);
+        //  const role = await fetchSAD('responsibility',Reg_no);
         const token = generateCookieToken(Email);
         res.cookie('id',token,{httpOnly: true, maxAge : fourHoursInMilliseconds, sameSite: 'None', secure: true });
-        Users[req.cookies.id] = {
-          login : true
-        }
         res.json({success : true, error : false}); 
     }else{
         res.json({success : false, error : false});
@@ -129,7 +121,6 @@ app.post('/verifyOTP', async  function (req, res) {
 app.get('/logout', async  function (req, res) {
   try{
     const id = req.cookies.id;
-    delete Users[id];
     res.clearCookie('id');
     res.send(true);
   }catch(err){
@@ -140,8 +131,6 @@ app.get('/logout', async  function (req, res) {
 app.get('/studentData', async function (req, res) {
   try{
     const id = req.cookies.id;
-    // if(Users[id] === undefined) res.send(false);
-    //logic 
     const regno = await decodeCookieToken(id);
     const data = await fetchSAD(regno);
     res.send(data);
@@ -204,6 +193,38 @@ app.post('/addStudents', async  function (req, res) {
         console.log(err);
       }
     }
+  });
+
+  //route to handle chnage password 
+  app.post('/changePass', async  function (req, res) {
+    const token = req.cookies.id;
+    const id = await decodeCookieToken(token);
+    try{
+      const {old_password, new_password} = req.body;
+      if(id.includes('@')){
+        const pass = await fetchAD('password',id);
+        const passwordMatch = bcrypt.compareSync(old_password,pass);
+        if(passwordMatch){
+          await changeAP(new_password,id);
+          return res.send({ auth: true, message: 'Password changed successfully!'});
+        }else{
+          return res.send({ auth: false, message: 'Password does not match..' })
+        }
+      }else{
+        const pass = await fetchSD('password',id);
+        const passwordMatch = bcrypt.compareSync(old_password,pass);
+        if(passwordMatch){
+          await changeSP(new_password,id);
+          res.send({ auth: true, message: 'Password changed successfully!'});
+        }else{
+          res.send({ auth: false, message: 'Password does not match..' })
+        }
+      }
+    }catch(err){
+      res.send({ auth: false, message: 'Unknown error occured! Try again...' })
+      console.log(err);
+    }
+    
   });
 
   
