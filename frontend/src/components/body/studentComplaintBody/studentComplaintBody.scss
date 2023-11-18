@@ -1,10 +1,10 @@
 // ComplaintBody.scss
-.complaint-box {
+.complaint-box1 {
     margin: 20px;
     width: 70%;
     margin-left: auto; /* Align the complaint box to the right */
   
-    .filter-buttons {
+    .filter-buttons1 {
       margin-bottom: 10px;
   
       button {
@@ -12,7 +12,7 @@
       }
     }
   
-    .search-bar {
+    .search-bar1 {
       margin-bottom: 10px;
   
       input {
@@ -22,13 +22,13 @@
       }
     }
   
-    .complaint-list {
+    .complaint-list1 {
       list-style-type: none;
       padding: 0;
       max-height: 500px; /* Set your desired max height */
       overflow-y: auto; /* Add scrollbars when content exceeds the max height */
   
-      .complaint-token {
+      .complaint-token1 {
         border: 1px solid #ccc;
         padding: 10px;
         margin-bottom: 10px;
@@ -36,15 +36,15 @@
         justify-content: space-between;
         align-items: center;
   
-        &.solved {
+        &.solved1 {
           background-color: #d4edda; /* Light green for solved complaints */
         }
   
-        &.unsolved {
+        &.unsolved1 {
           background-color: #f8d7da; /* Light red for unsolved complaints */
         }
   
-        .complaint-details {
+        .complaint-details1 {
           flex: 1;
   
           h3 {
@@ -73,7 +73,7 @@
   }
   
   @media (max-width: 768px) {
-    .complaint-box {
+    .complaint-box1 {
       width: 100%;
     }
   }

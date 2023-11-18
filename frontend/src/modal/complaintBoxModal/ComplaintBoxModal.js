@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './complaintBoxPopup.scss';
+import './complaintBoxModal.scss';
 
 const ComplaintBoxForm = ({setOpenComplaintBox}) => {
   const [complaint, setComplaint] = useState({

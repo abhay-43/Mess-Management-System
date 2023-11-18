@@ -1,6 +1,6 @@
 // ComplaintBody.js
 import React, { useState, useEffect } from 'react';
-import './ComplaintBody.scss';
+ import './studentComplaintBody.scss';
 
 const ComplaintBody = ({ complaints }) => {
   const [filteredComplaints, setFilteredComplaints] = useState(complaints);
@@ -39,14 +39,14 @@ const ComplaintBody = ({ complaints }) => {
   }, [searchTerm, filterStatus]);
 
   return (
-    <div className="complaint-box">
-      <div className="filter-buttons">
+    <div className="complaint-box1">
+      <div className="filter-buttons1">
         <button onClick={() => handleFilter('all')}>All</button>
         <button onClick={() => handleFilter('solved')}>Solved</button>
         <button onClick={() => handleFilter('unsolved')}>Unsolved</button>
       </div>
 
-      <div className="search-bar">
+      <div className="search-bar1">
         <input
           type="text"
           placeholder="Search by student name"
@@ -55,10 +55,10 @@ const ComplaintBody = ({ complaints }) => {
         />
       </div>
 
-      <ul className="complaint-list">
+      <ul className="complaint-list1">
         {filteredComplaints.map((complaint) => (
-          <li key={complaint.id} className={`complaint-token ${complaint.solved ? 'solved' : 'unsolved'}`}>
-            <div className="complaint-details">
+          <li key={complaint.id} className={`complaint-token1 ${complaint.solved ? 'solved1' : 'unsolved1'}`}>
+            <div className="complaint-details1">
               <h3>{complaint.title}</h3>
               <p>{complaint.text}</p>
               <p>Student: {complaint.studentName}</p>

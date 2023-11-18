@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Footer from '../../components/footer/Footer';
 import ProfileHeader from '../../components/header/studentHeader/StudentHeader';
 import "./studentProfile.scss"
-import ComplaintBody from '../../components/body/complaintBody/ComplaintBody';
+import ComplaintBody from '../../components/body/studentComplaintBody/StudentComplaintBody';
 const Profile = () => {
 
   const complaints = [
