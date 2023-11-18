@@ -9,6 +9,7 @@ import { insertSD, deleteSD, fetchSAD, fetchSD, changeSP, getAllStudents } from 
 import { insertAD, deleteAD, fetchAAD, fetchAD, changeAP } from './modules/adminDB.mjs';
 import { generateCookieToken, decodeCookieToken } from './modules/jwt.mjs';
 import { uploadImg, upload} from './modules/cloudinary.mjs';
+import { fetchMenu, insertMenu, changeMenu } from './modules/menuQuery.mjs';
 
 const app = express();
 const PORT = 5005;
@@ -123,6 +124,7 @@ app.post('/upload', upload.single('image'),  async function (req, res) {
     const image = req.file.buffer;
     const {description, name, regNo, hostel} = req.body;
     // const result = await uploadImg(image);
+    // console.log(result);
   }catch(err){
     console.log(err);
   }
@@ -173,6 +175,19 @@ app.post('/hostel', async  function (req, res) {
       console.log(err);
     }
   });
+
+  //route to fetch mess menu
+app.post('/menu', async  function (req, res) {
+  try{
+    const { hostel } = req.body;
+    const link = await fetchMenu(hostel);
+    res.send({
+      link : link
+    });
+  }catch(err){
+    console.log(err);
+  }
+});
 
   //route to store students data into database 
 app.post('/addStudents', async  function (req, res) {
@@ -245,6 +260,9 @@ app.get('/', async  function (req, res) {
     // const data = await getAllStudents('Malviya');
     // res.send(data);
     // await deleteSD('');
+    // await changeMenu('Tandon','https://res.cloudinary.com/dbhvnmb2o/image/upload/v1700341131/uploads/ay6u9z0twuj0lrs6vrnf.jpg');
+    // const data = await fetchMenu('Tandon');
+    // res.send(data);
     
 });
 

@@ -17,8 +17,13 @@
     padding: 20px;
     border-radius: 5px;
     position: relative;
+    text-align: center;
   }
-  
+  .modal-content img {
+    max-width: 60%; /* Set the maximum width to 100% of the container */
+    max-height: 100%; /* Set the maximum height to 100% of the container */
+    margin: 0 auto; /* Center the image horizontally within its container */
+  }
   .close {
     position: absolute;
     top: 10px;

@@ -18,6 +18,7 @@ const ProfileHeader = (props) => {
   const [name, setName] = useState('');
   const [regno, setRegno] = useState('');
   const [hostel, setHostel] = useState('');
+  const [link, setLink] = useState('');
 
   const toggleHamburger = (e) => {
     e.preventDefault();
@@ -30,9 +31,6 @@ const ProfileHeader = (props) => {
   const toggleProfile = () => {
     setOpenComplaintBox(false);
     setOpenUpdatePassword(false);
-    // setName(props.name);
-    // setRegno(props.regno);
-    // setHostel(props.hostel);
     setOpenProfile(!openProfile);
   };
 
@@ -46,6 +44,31 @@ const ProfileHeader = (props) => {
     setOpenUpdatePassword(false);
     setOpenComplaintBox(!openComplaintBox);
   };
+
+  const toggleMessMenu = async() =>{
+    setOpenProfile(false);
+    setOpenUpdatePassword(false);
+    const data = {
+      hostel : hostel
+    }
+    try{
+      const response = await fetch("http://localhost:5005/menu",{
+      method : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    });
+    const responseData = await response.json();
+    setLink(responseData.link);
+    console.log(link);
+    setOpenMessMenu(!openMessMenu);
+  }catch(err){
+    console.log(err);
+  }
+
+}
   useEffect( ()=>{
     setName(props.name);
     setRegno(props.regno);
@@ -83,7 +106,7 @@ const ProfileHeader = (props) => {
           <li className='link' onClick={toggleMessMenu}>Mess Menu</li>
           <li className='complaint-box link' onClick={toggleComplaintBox}>Complain Box</li>
           {openComplaintBox && <ComplaintBoxForm regno = {regno} name = {name} hostel ={hostel} />}
-          {openMessMenu && <MessMenuModal setOpenMessMenu={setOpenMessMenu} />} {/* Render MessMenuModal when openMessMenu is true */}
+          {openMessMenu && <MessMenuModal setOpenMessMenu={setOpenMessMenu} link = {link}/>} {/* Render MessMenuModal when openMessMenu is true */}
           <div id="pfp2" className="profile-popup-container">
             <li className="profile-button">
               <img src={images.people_first} alt='profile' onClick={toggleProfile} />

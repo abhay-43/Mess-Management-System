@@ -23,4 +23,6 @@ async function insertComplaint(reg_no, name, hostel, description, imgLink, statu
       
     }
   }
+
+
   
