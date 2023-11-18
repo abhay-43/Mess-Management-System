@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { images } from '../../../images';
 import { useNavigate } from 'react-router-dom';
 import './studentHeader.scss';
@@ -15,6 +15,7 @@ const ProfileHeader = (props) => {
   const [openComplaintBox, setOpenComplaintBox] = useState(false);
   const [name, setName] = useState('');
   const [regno, setRegno] = useState('');
+  const [hostel, setHostel] = useState('');
 
   const toggleHamburger = (e) => {
     e.preventDefault();
@@ -27,8 +28,9 @@ const ProfileHeader = (props) => {
   const toggleProfile = () => {
     setOpenComplaintBox(false);
     setOpenUpdatePassword(false);
-    setName(props.name);
-    setRegno(props.regno);
+    // setName(props.name);
+    // setRegno(props.regno);
+    // setHostel(props.hostel);
     setOpenProfile(!openProfile);
   };
 
@@ -42,6 +44,12 @@ const ProfileHeader = (props) => {
     setOpenUpdatePassword(false);
     setOpenComplaintBox(!openComplaintBox);
   };
+  useEffect( ()=>{
+    setName(props.name);
+    setRegno(props.regno);
+    setHostel(props.hostel);
+  },[props]);
+  
 
   const logout = async () => {
     try {
@@ -72,7 +80,7 @@ const ProfileHeader = (props) => {
           <li className='link'>Contact</li>
           <li className='link'>Details</li>
           <li className='complaint-box link' onClick={toggleComplaintBox}>Complain Box</li>
-          {openComplaintBox && <ComplaintBoxForm />}
+          {openComplaintBox && <ComplaintBoxForm regno = {regno} name = {name} hostel ={hostel} />}
           <div id="pfp2" className="profile-popup-container">
             <li className="profile-button">
               <img src={images.people_first} alt='profile' onClick={toggleProfile} />
@@ -82,12 +90,11 @@ const ProfileHeader = (props) => {
                 <div className='popupHead'>
                   {name && <h3><b>{name}</b></h3>}
                   <br />
-                  {regno && <h4><b>{regno}</b></h4>}
+                  {regno && <h4><b>{regno} ({hostel})</b></h4>}
                 </div>
-                <hr />
+                <hr /> 
                 <div className='popupBottom'>
                   <h4 className='change-password' onClick={toggleUpdatePassword}><b>Change Password</b></h4>
-                  <br />
                   <h4 className='logout' onClick={logout}><b>Log Out</b></h4>
                 </div>
               </div>

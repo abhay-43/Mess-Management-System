@@ -49,7 +49,7 @@ const Profile = () => {
 
   return (
     <div>
-      <ProfileHeader  name = {name} regno = {regno}/>
+      <ProfileHeader  name = {name} regno = {regno} hostel = {hostelName}/>
       <br />
       <div className='profileBody'>
       <ComplaintBody complaints={complaints} />

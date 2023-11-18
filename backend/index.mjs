@@ -8,6 +8,7 @@ import { connectDB } from './modules/dbConnect.mjs';
 import { insertSD, deleteSD, fetchSAD, fetchSD, changeSP, getAllStudents } from './modules/studentDB.mjs';
 import { insertAD, deleteAD, fetchAAD, fetchAD, changeAP } from './modules/adminDB.mjs';
 import { generateCookieToken, decodeCookieToken } from './modules/jwt.mjs';
+import { uploadImg, upload} from './modules/cloudinary.mjs';
 
 const app = express();
 const PORT = 5005;
@@ -116,6 +117,16 @@ app.post('/verifyOTP', async  function (req, res) {
   }
 });
 
+
+app.post('/upload', upload.single('image'),  async function (req, res) {
+  try{
+    const image = req.file.buffer;
+    const {description, name, regNo, hostel} = req.body;
+    // const result = await uploadImg(image);
+  }catch(err){
+    console.log(err);
+  }
+});
 
 
 app.get('/logout', async  function (req, res) {

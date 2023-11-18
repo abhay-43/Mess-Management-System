@@ -163,7 +163,6 @@ const AdminProfile = () => {
                 <hr />
                 <div className='popupBottom'>
                   <h4 className='change-password' onClick={toggleUpdatePassword}><b>Change Password</b></h4>
-                  <br />
                   <h4 className='logout' onClick={logout}><b>Log Out</b></h4>
                 </div>
               </div>
