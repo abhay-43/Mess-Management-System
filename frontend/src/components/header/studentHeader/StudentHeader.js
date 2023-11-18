@@ -5,6 +5,7 @@ import './studentHeader.scss';
 import '../../../scss/profilePopup.scss';
 import UpdatePassModal from '../../../modal/updatePasswordModal/UpdatePasswordModal';
 import ComplaintBoxForm from '../../../modal/complaintBoxModal/ComplaintBoxModal';
+import MessMenuModal from '../../../modal/messMenuModal/MessMenuModal'; // Import the MessMenuModal
 
 const ProfileHeader = (props) => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const ProfileHeader = (props) => {
   const [openProfile, setOpenProfile] = useState(false);
   const [openUpdatePassword, setOpenUpdatePassword] = useState(false);
   const [openComplaintBox, setOpenComplaintBox] = useState(false);
+  const [openMessMenu, setOpenMessMenu] = useState(false); // New state for Mess Menu modal
   const [name, setName] = useState('');
   const [regno, setRegno] = useState('');
 
@@ -43,6 +45,10 @@ const ProfileHeader = (props) => {
     setOpenComplaintBox(!openComplaintBox);
   };
 
+  const toggleMessMenu = () => {
+    setOpenMessMenu(!openMessMenu);
+  };
+
   const logout = async () => {
     try {
       const response = await fetch("http://localhost:5005/logout", {
@@ -70,9 +76,10 @@ const ProfileHeader = (props) => {
         <ul className={openHamburger ? "nav-items active" : "nav-items"}>
           <li id='pfp1' className='link' onClick={toggleProfile} >Profile</li>
           <li className='link'>Contact</li>
-          <li className='link'>Details</li>
+          <li className='link' onClick={toggleMessMenu}>Mess Menu</li>
           <li className='complaint-box link' onClick={toggleComplaintBox}>Complain Box</li>
           {openComplaintBox && <ComplaintBoxForm />}
+          {openMessMenu && <MessMenuModal setOpenMessMenu={setOpenMessMenu} />} {/* Render MessMenuModal when openMessMenu is true */}
           <div id="pfp2" className="profile-popup-container">
             <li className="profile-button">
               <img src={images.people_first} alt='profile' onClick={toggleProfile} />
