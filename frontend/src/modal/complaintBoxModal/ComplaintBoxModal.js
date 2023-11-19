@@ -26,7 +26,7 @@ const ComplaintBoxForm = ({ regno, name, hostel}) => {
       formData.append('name',name);
       formData.append('regNo',regno);
       formData.append('hostel',hostel);
-      const response = await fetch('http://localhost:5005/upload', {
+      const response = await fetch('http://localhost:5005/complaint', {
         method: 'POST',
         body: formData,
         credentials: 'include',

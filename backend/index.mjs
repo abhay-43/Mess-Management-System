@@ -10,6 +10,7 @@ import { insertAD, deleteAD, fetchAAD, fetchAD, changeAP } from './modules/admin
 import { generateCookieToken, decodeCookieToken } from './modules/jwt.mjs';
 import { uploadImg, upload} from './modules/cloudinary.mjs';
 import { fetchMenu, insertMenu, changeMenu } from './modules/menuQuery.mjs';
+import { insertComplaint, getComplaint } from './modules/complaintDB.mjs';
 
 const app = express();
 const PORT = 5005;
@@ -119,18 +120,21 @@ app.post('/verifyOTP', async  function (req, res) {
 });
 
 
-app.post('/upload', upload.single('image'),  async function (req, res) {
+//route to submit complaint by students
+app.post('/complaint', upload.single('image'),  async function (req, res) {
   try{
     const image = req.file.buffer;
     const {description, name, regNo, hostel} = req.body;
-    // const result = await uploadImg(image);
-    // console.log(result);
+    const link = await uploadImg(image);
+    await insertComplaint(regNo,name,hostel,description,link);
+    res.json({success : true});
   }catch(err){
+    res.json({success : false});
     console.log(err);
   }
 });
 
-
+//route to handle logout
 app.get('/logout', async  function (req, res) {
   try{
     const id = req.cookies.id;
@@ -141,6 +145,7 @@ app.get('/logout', async  function (req, res) {
   }
 });
 
+//route to send student data 
 app.get('/studentData', async function (req, res) {
   try{
     const id = req.cookies.id;
@@ -152,6 +157,7 @@ app.get('/studentData', async function (req, res) {
   }
 });
 
+//route to send admin data 
 app.get('/adminData', async function (req, res) {
   try{
     const id = req.cookies.id;
@@ -255,7 +261,7 @@ app.post('/addStudents', async  function (req, res) {
 
   
 app.get('/', async  function (req, res) {
-    // const data = await insertAD('babujames0007@gmail.com','James', 'Bond', 'Tandon', '123456', 'Warden');
+    // const data = await getComplaint('Malviya');
     // res.send(data);
     // const data = await getAllStudents('Malviya');
     // res.send(data);
