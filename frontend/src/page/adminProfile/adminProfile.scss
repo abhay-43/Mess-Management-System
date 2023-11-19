@@ -1,10 +1,17 @@
-.adminProfileBody {
-    min-height: 500px;
-}
 
-.profile-popup-container {
-    width: 60px;
-    height: 60px;
-    // margin-left: 160px; /* Add margin to separate the delete icon from registration number */
-    // cursor: pointer; /* Add this if the delete icon is clickable */
-}
+
+// adminProfile.scss
+.adminProfileContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Use the full height of the viewport */
+  }
+  
+  .adminProfileBody {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Adjust as needed */
+    padding: 20px;
+  }
+  
+  
