@@ -31,9 +31,54 @@ async function insertComplaint(reg_no, name, hostel, description, imgLink) {
     }
   }
 
+    //fuction to change status to solved
+    async function solvedComplaint(complaintId) {
+  
+      const query = `UPDATE complaints SET status = $1 WHERE complaintId = $2`;
+      try {
+        const result = await client.query(query, [true, complaintId]);
+        console.log(`Complaint ${complaintId} is marked solved!`);
+      } catch (err) {
+        
+        throw new DatabaseError("DATABASE ERROR :");
+        
+      }
+    }
+
+    //fuction to upvote a complaint
+    async function upvoteComplaint(complaintId) {
+  
+      const query = `UPDATE complaints SET upvote = upvote+1 WHERE complaintId = $1`;
+      try {
+        const result = await client.query(query, [complaintId]);
+        console.log(`Complaint ${complaintId} is upvoted!`);
+      } catch (err) {
+        
+        throw new DatabaseError("DATABASE ERROR :");
+        
+      }
+    }
+
+    //fuction to downvote a complaint
+    async function downvoteComplaint(complaintId) {
+  
+      const query = `UPDATE complaints SET downvote = downvote+1 WHERE complaintId = $1`;
+      try {
+        const result = await client.query(query, [complaintId]);
+        console.log(`Complaint ${complaintId} is downvoted!`);
+      } catch (err) {
+        
+        throw new DatabaseError("DATABASE ERROR :");
+        
+      }
+    }
+
   export {
     insertComplaint,
-    getComplaint
+    getComplaint,
+    solvedComplaint,
+    upvoteComplaint,
+    downvoteComplaint
   }
 
 

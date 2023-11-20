@@ -10,7 +10,7 @@ import { insertAD, deleteAD, fetchAAD, fetchAD, changeAP } from './modules/admin
 import { generateCookieToken, decodeCookieToken } from './modules/jwt.mjs';
 import { uploadImg, upload} from './modules/cloudinary.mjs';
 import { fetchMenu, insertMenu, changeMenu } from './modules/menuQuery.mjs';
-import { insertComplaint, getComplaint } from './modules/complaintDB.mjs';
+import { insertComplaint, getComplaint, solvedComplaint, upvoteComplaint, downvoteComplaint } from './modules/complaintDB.mjs';
 
 const app = express();
 const PORT = 5005;
@@ -275,7 +275,7 @@ app.post('/addStudents', async  function (req, res) {
 
   
 app.get('/', async  function (req, res) {
-    // const data = await getComplaint('Malviya');
+    // const data = await solvedComplaint('918887578479296513');
     // res.send(data);
     // const data = await getAllStudents('Malviya');
     // res.send(data);
@@ -283,6 +283,7 @@ app.get('/', async  function (req, res) {
     // await changeMenu('Tandon','https://res.cloudinary.com/dbhvnmb2o/image/upload/v1700341131/uploads/ay6u9z0twuj0lrs6vrnf.jpg');
     // const data = await fetchMenu('Tandon');
     // res.send(data);
+    
     
 });
 
