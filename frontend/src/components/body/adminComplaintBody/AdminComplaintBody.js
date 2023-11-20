@@ -25,12 +25,34 @@ const AdminComplaintBody = ({ complaints }) => {
     setFilterStatus(status); // Update the current filter status
   };
 
-  const toggleStatus = (id) => {
-    const updatedComplaints = complaints.map((complaint) =>
-      complaint.id === id ? { ...complaint, solved: !complaint.status } : complaint
-    );
-    handleFilter(filterStatus); // Reapply the filter after toggling the status
+  const changeStatus = async(id)=>{
+    if(window.confirm(`Do you want to mark complaint with id ${id} solved ?`)){
+      try {
+        const data = {
+          complaintid : id,
+        };
+        const response = await fetch("http://localhost:5005/status", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(data),
+        });
+        const responseData = await response.json();
+        if(responseData.success){
+          alert(`Complaint with id ${id} is solved..`);
+          window.location.reload();
+        }else{
+          alert(`Complaint status not changed..Try again!`);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    
   };
+
   const openModal = (imageUrl) => {
     setModalOpen(true);
     setModalImage(imageUrl);
@@ -84,9 +106,9 @@ const AdminComplaintBody = ({ complaints }) => {
               <p>Registration Number: <b>{complaint.reg_no}</b></p>
             </div>
             <div className="complaint-actions-admin">
-              <button onClick={() => toggleStatus(complaint.complaintid)} className={complaint.status ? 'solved-btn' : 'unsolved-btn'}>
-                {complaint.status ? 'Mark Unsolved' : 'Mark Solved'}
-              </button>
+              {!complaint.status && <button onClick={async() => await changeStatus(complaint.complaintid)} className={complaint.status ? 'solved-btn' : ''}>
+                Mark Solved
+              </button>}
             </div>
           </li>
         ))}

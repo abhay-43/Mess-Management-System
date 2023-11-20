@@ -148,6 +148,18 @@ app.post('/complaintData',  async function (req, res) {
   }
 });
 
+//route to close complaint 
+app.post('/status',  async function (req, res) {
+  try{
+    const {complaintid} = req.body;
+    const data = await solvedComplaint(complaintid);
+    res.json({success : true});
+  }catch(err){
+    res.json({success : false});
+    console.log(err);
+  }
+});
+
 //route to handle logout
 app.get('/logout', async  function (req, res) {
   try{
