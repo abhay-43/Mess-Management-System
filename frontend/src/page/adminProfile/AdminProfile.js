@@ -73,14 +73,15 @@ const AdminProfile = () => {
     setOpenUpdateAccountant(!openUpdateAccountant);
   };
 
-  const complaints = [
-    { id: 1, title: 'Issue 1', text: 'Description of Issue 1ggggggggggggggggggggggggggggggggggggggggggg', studentName: 'Aamir', solved: true },
-    { id: 2, title: 'Issue 2', text: 'Description of Issue 2', studentName: 'Bhnau', solved: false, registrationNumber: '20214006' },
-    { id: 3, title: 'Issue 3', text: 'Description of Issue 3', studentName: 'Abhay', solved: true },
-    { id: 4, title: 'Issue 4', text: 'Description of Issue 4', studentName: 'Ankit', solved: false },
-    { id: 5, title: 'Issue 5', text: 'Description of Issue 5', studentName: 'Johnny', solved: true },
-    { id: 6, title: 'Issue 6', text: 'Description of Issue 6', studentName: 'Abhay', solved: false },
-  ];
+  // const complaints = [
+  //   { id: 1, title: 'Issue 1', text: 'Description of Issue 1ggggggggggggggggggggggggggggggggggggggggggg', studentName: 'Aamir', solved: true },
+  //   { id: 2, title: 'Issue 2', text: 'Description of Issue 2', studentName: 'Bhnau', solved: false, registrationNumber: '20214006' },
+  //   { id: 3, title: 'Issue 3', text: 'Description of Issue 3', studentName: 'Abhay', solved: true },
+  //   { id: 4, title: 'Issue 4', text: 'Description of Issue 4', studentName: 'Ankit', solved: false },
+  //   { id: 5, title: 'Issue 5', text: 'Description of Issue 5', studentName: 'Johnny', solved: true },
+  //   { id: 6, title: 'Issue 6', text: 'Description of Issue 6', studentName: 'Abhay', solved: false },
+  // ];
+  const [complaints, setComplaints] = useState([]);
 
   useEffect(() => {
     const getAdminData = async () => {
@@ -104,11 +105,36 @@ const AdminProfile = () => {
       }
     };
 
+    const getComplaintData = async () => {
+      try {
+        const data = {
+          hostel : hostel
+        }
+        const response = await fetch("http://localhost:5005/complaintData", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body : JSON.stringify(data)
+
+        });
+
+        const responseData = await response.json();
+        setComplaints(responseData || []);
+        console.log(complaints);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+
     const fetchData = async () => {
       await getAdminData();
+      await getComplaintData();
     };
     fetchData();
-  }, []);
+  }, [hostel]);
 
   const logout = async () => {
     try {

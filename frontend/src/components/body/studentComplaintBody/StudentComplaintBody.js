@@ -64,7 +64,8 @@ const StudentComplaintBody = ({ complaints }) => {
             <div className="complaint-details-student">
               <h3><b>Complaint ID : </b>{complaint.complaintid}</h3><hr />
               <p className="description"><b>Description : </b>{complaint.description}</p><hr />
-              {images.intro_mobile && <img src={complaint.imglink} alt="Complaint Image" className="complaint-image" />}<hr />
+              {complaint.imglink && <img src={complaint.imglink} alt="Complaint Image" className="complaint-image" />}
+              {!complaint.imglink && <img alt="No image attached.." className="complaint-image" />}<hr />
               <p>Student: <b>{complaint.name}</b></p>
               <p>Registration Number: <b>{complaint.reg_no}</b></p>
             </div>

@@ -12,20 +12,20 @@ const AdminComplaintBody = ({ complaints }) => {
     let filteredList = complaints;
 
     if (status === 'solved') {
-      filteredList = complaints.filter((complaint) => complaint.solved);
+      filteredList = complaints.filter((complaint) => complaint.status);
     } else if (status === 'unsolved') {
-      filteredList = complaints.filter((complaint) => !complaint.solved);
+      filteredList = complaints.filter((complaint) => !complaint.status);
     }
 
     // Apply search filter
     const regex = new RegExp(searchTerm, 'i');
-    setFilteredComplaints(filteredList.filter((complaint) => regex.test(complaint.studentName) || regex.test(complaint.registrationNumber)));
+    setFilteredComplaints(filteredList.filter((complaint) => regex.test(complaint.name) || regex.test(complaint.reg_no)));
     setFilterStatus(status); // Update the current filter status
   };
 
   const toggleStatus = (id) => {
     const updatedComplaints = complaints.map((complaint) =>
-      complaint.id === id ? { ...complaint, solved: !complaint.solved } : complaint
+      complaint.id === id ? { ...complaint, solved: !complaint.status } : complaint
     );
     handleFilter(filterStatus); // Reapply the filter after toggling the status
   };
@@ -64,17 +64,18 @@ const AdminComplaintBody = ({ complaints }) => {
 
       <ul className="complaint-list-admin">
         {filteredComplaints.map((complaint) => (
-          <li key={complaint.id} className={`complaint-token-admin ${complaint.solved ? 'solved-admin' : 'unsolved-admin'}`}>
+          <li key={complaint.complaintid} className={`complaint-token-admin ${complaint.status ? 'solved-admin' : 'unsolved-admin'}`}>
             <div className="complaint-details-admin">
-              <h3>{complaint.title}</h3><hr />
-              <p className="description">{complaint.text}</p><hr />
-              {images.intro_mobile && <img src={images.intro_mobile} alt="Complaint Image" className="complaint-image" />}<hr />
-              <p>Student: <b>{complaint.studentName}</b></p>
-              <p>Registration Number: <b>{complaint.registrationNumber}</b></p>
+              <h3><b>Complaint ID : </b>{complaint.complaintid}</h3><hr />
+              <p className="description"><b>Description : </b>{complaint.description}</p><hr />
+              {complaint.imglink && <img src={complaint.imglink} alt="Complaint Image" className="complaint-image" />}
+              {!complaint.imglink && <img alt="No image attached.." className="complaint-image" />}<hr />
+              <p>Student: <b>{complaint.name}</b></p>
+              <p>Registration Number: <b>{complaint.reg_no}</b></p>
             </div>
             <div className="complaint-actions-admin">
-              <button onClick={() => toggleStatus(complaint.id)} className={complaint.solved ? 'solved-btn' : 'unsolved-btn'}>
-                {complaint.solved ? 'Mark Unsolved' : 'Mark Solved'}
+              <button onClick={() => toggleStatus(complaint.complaintid)} className={complaint.status ? 'solved-btn' : 'unsolved-btn'}>
+                {complaint.status ? 'Mark Unsolved' : 'Mark Solved'}
               </button>
             </div>
           </li>
