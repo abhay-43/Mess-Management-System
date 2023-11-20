@@ -1,8 +1,8 @@
 // adminComplaintBody.scss
 .complaint-box-admin {
     margin: 2%;
-    width: 60%;
-    max-height: 90vh; /* Set max height to 70% of the viewport height */
+    width: 65%;
+    max-height: 600px; /* Set max height to 70% of the viewport height */
     margin-left: auto; /* Align the complaint box to the right */
   
     hr {
@@ -56,7 +56,7 @@
     .complaint-list-admin {
       list-style-type: none;
       padding: 0;
-      max-height: 500px; /* Set your desired max height */
+      max-height: 595px; /* Set your desired max height */
       overflow-y: auto; /* Add scrollbars when content exceeds the max height */
   
       .complaint-token-admin {

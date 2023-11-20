@@ -6,6 +6,8 @@ const StudentComplaintBody = ({ complaints }) => {
   const [filteredComplaints, setFilteredComplaints] = useState(complaints);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('');
 
   const handleFilter = (status) => {
     let filteredList = complaints;
@@ -24,6 +26,15 @@ const StudentComplaintBody = ({ complaints }) => {
 
   const toggleStatus = (id) => {
     // Toggle status logic here
+  };
+
+  const openModal = (imageUrl) => {
+    setModalOpen(true);
+    setModalImage(imageUrl);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   useEffect(() => {
@@ -64,7 +75,7 @@ const StudentComplaintBody = ({ complaints }) => {
             <div className="complaint-details-student">
               <h3><b>Complaint ID : </b>{complaint.complaintid}</h3><hr />
               <p className="description"><b>Description : </b>{complaint.description}</p><hr />
-              {complaint.imglink && <img src={complaint.imglink} alt="Complaint Image" className="complaint-image" />}
+              {complaint.imglink && <img src={complaint.imglink} alt="Complaint Image" className="complaint-image" onClick={() => openModal(complaint.imglink)}/>}
               {!complaint.imglink && <img alt="No image attached.." className="complaint-image" />}<hr />
               <p>Student: <b>{complaint.name}</b></p>
               <p>Registration Number: <b>{complaint.reg_no}</b></p>
@@ -77,6 +88,13 @@ const StudentComplaintBody = ({ complaints }) => {
           </li>
         ))}
       </ul>
+      {modalOpen && (
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content">
+            <img src={modalImage} alt="Complaint Image" className="modal-image" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
