@@ -1,8 +1,8 @@
-// ComplaintBody.js
+// StudentComplaintBody.js
 import React, { useState, useEffect } from 'react';
 import './studentComplaintBody.scss';
 
-const ComplaintBody = ({ complaints }) => {
+const StudentComplaintBody = ({ complaints }) => {
   const [filteredComplaints, setFilteredComplaints] = useState(complaints);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
@@ -10,7 +10,6 @@ const ComplaintBody = ({ complaints }) => {
   const handleFilter = (status) => {
     let filteredList = complaints;
 
-    // Apply status filter
     if (status === 'solved') {
       filteredList = complaints.filter((complaint) => complaint.solved);
     } else if (status === 'unsolved') {
@@ -74,8 +73,8 @@ const ComplaintBody = ({ complaints }) => {
               <p>Downvotes: {complaint.downvotes}</p>
             </div>
             <div>
-              <button onClick={() => handleUpvote(complaint.id)}>Upvote</button>
-              <button onClick={() => handleDownvote(complaint.id)}>Downvote</button>
+              <button onClick={() => handleUpvote(complaint.id)} className="upvote-btn">Upvote</button>
+              <button onClick={() => handleDownvote(complaint.id)} className="downvote-btn">Downvote</button>
             </div>
           </li>
         ))}
@@ -84,4 +83,4 @@ const ComplaintBody = ({ complaints }) => {
   );
 };
 
-export default ComplaintBody;
+export default StudentComplaintBody;

@@ -1,7 +1,8 @@
 // adminComplaintBody.scss
 .complaint-box-admin {
-    margin: 20px;
+    margin: 2%;
     width: 60%;
+    max-height: 90vh; /* Set max height to 70% of the viewport height */
     margin-left: auto; /* Align the complaint box to the right */
   
     hr {

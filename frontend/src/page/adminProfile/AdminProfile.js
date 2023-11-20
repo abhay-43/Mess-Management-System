@@ -138,7 +138,7 @@ const AdminProfile = () => {
           <ul className={openHamburger ? "nav-items active" : "nav-items"}>
             <li id='pfp1' className='link' onClick={toggleProfile}>Profile</li>
             <div className="profile-popup-container">
-              <li onClick={toggleAccountantProfile}>Accountant</li>
+              <li className='accountant_details' onClick={toggleAccountantProfile}>Accountant</li>
               {openAccountantProfile && (
                 <div className="profile-popup">
                   <div className='popupHead'>

@@ -1,17 +1,15 @@
-
 // studentComplaintBody.scss
-
 .complaint-box1 {
   width: 70%;
-  margin-left:  auto;
+  margin-left: auto;
   padding: 20px;
   box-sizing: border-box;
-  
+
   .filter-buttons1 {
     display: flex;
     justify-content: space-around;
     margin-bottom: 15px;
-    
+
     button {
       padding: 8px 12px;
       background-color: #3498db;
@@ -44,8 +42,8 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 500px; // Set a fixed height
-    overflow-y: auto; // Make it scrollable
+    max-height: 500px;
+    overflow-y: auto;
 
     .complaint-token1 {
       border: 1px solid #ddd;
@@ -58,11 +56,11 @@
       }
 
       &.solved1 {
-        background-color: #dff0d8; // Light green for solved
+        background-color: #dff0d8;
       }
 
       &.unsolved1 {
-        background-color: #f2dede; // Light red for unsolved
+        background-color: #f2dede;
       }
 
       .complaint-details1 {
@@ -95,17 +93,16 @@
         }
       }
 
-      .upvote {
+      .upvote-btn {
         color: #2ecc71;
       }
 
-      .downvote {
+      .downvote-btn {
         color: #e74c3c;
       }
     }
   }
 
-  // Responsive styles
   @media (max-width: 768px) {
     width: 100%;
     margin-right: 0;
