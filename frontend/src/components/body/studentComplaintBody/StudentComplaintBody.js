@@ -1,6 +1,7 @@
 // StudentComplaintBody.js
 import React, { useState, useEffect } from 'react';
 import './studentComplaintBody.scss';
+import { images } from '../../../images';
 
 const StudentComplaintBody = ({ complaints }) => {
   const [filteredComplaints, setFilteredComplaints] = useState(complaints);
@@ -18,22 +19,12 @@ const StudentComplaintBody = ({ complaints }) => {
 
     // Apply search filter
     const regex = new RegExp(searchTerm, 'i');
-    setFilteredComplaints(filteredList.filter((complaint) => regex.test(complaint.studentName)));
+    setFilteredComplaints(filteredList.filter((complaint) => regex.test(complaint.studentName) || regex.test(complaint.registrationNumber)));
     setFilterStatus(status); // Update the current filter status
   };
 
-  const handleUpvote = (id) => {
-    const updatedComplaints = complaints.map((complaint) =>
-      complaint.id === id ? { ...complaint, upvotes: complaint.upvotes + 1 } : complaint
-    );
-    handleFilter(filterStatus); // Reapply the filter after upvoting
-  };
-
-  const handleDownvote = (id) => {
-    const updatedComplaints = complaints.map((complaint) =>
-      complaint.id === id ? { ...complaint, downvotes: complaint.downvotes + 1 } : complaint
-    );
-    handleFilter(filterStatus); // Reapply the filter after downvoting
+  const toggleStatus = (id) => {
+    // Toggle status logic here
   };
 
   useEffect(() => {
@@ -46,35 +37,42 @@ const StudentComplaintBody = ({ complaints }) => {
   }, [searchTerm, filterStatus]);
 
   return (
-    <div className="complaint-box1">
-      <div className="filter-buttons1">
-        <button onClick={() => handleFilter('all')}>All</button>
-        <button onClick={() => handleFilter('solved')}>Solved</button>
-        <button onClick={() => handleFilter('unsolved')}>Unsolved</button>
+    <div className="complaint-box-student">
+      <div className="filter-buttons-student">
+        <button onClick={() => handleFilter('all')} className="all-btn">
+          All
+        </button>
+        <button onClick={() => handleFilter('unsolved')} className="unsolved-btn">
+          Unsolved
+        </button>
+        <button onClick={() => handleFilter('solved')} className="solved-btn">
+          Solved
+        </button>
       </div>
 
-      <div className="search-bar1">
+      <div className="search-bar-student">
         <input
           type="text"
-          placeholder="Search by student name"
+          placeholder="Search by student name or registration number"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
-      <ul className="complaint-list1">
+      <ul className="complaint-list-student">
         {filteredComplaints.map((complaint) => (
-          <li key={complaint.id} className={`complaint-token1 ${complaint.solved ? 'solved1' : 'unsolved1'}`}>
-            <div className="complaint-details1">
-              <h3>{complaint.title}</h3>
-              <p>{complaint.text}</p>
-              <p>Student: {complaint.studentName}</p>
-              <p>Upvotes: {complaint.upvotes}</p>
-              <p>Downvotes: {complaint.downvotes}</p>
+          <li key={complaint.id} className={`complaint-token-student ${complaint.solved ? 'solved-student' : 'unsolved-student'}`}>
+            <div className="complaint-details-student">
+              <h3>{complaint.title}</h3><hr />
+              <p className="description">{complaint.text}</p><hr />
+              {images.intro_mobile && <img src={images.intro_mobile} alt="Complaint Image" className="complaint-image" />}<hr />
+              <p>Student: <b>{complaint.studentName}</b></p>
+              <p>Registration Number: <b>{complaint.registrationNumber}</b></p>
             </div>
-            <div>
-              <button onClick={() => handleUpvote(complaint.id)} className="upvote-btn">Upvote</button>
-              <button onClick={() => handleDownvote(complaint.id)} className="downvote-btn">Downvote</button>
+            <div className="complaint-actions-student">
+              {/* Upvote and downvote buttons */}
+              <button className="upvote-btn">&#9650;</button>
+              <button className="downvote-btn">&#9660;</button>
             </div>
           </li>
         ))}
@@ -84,3 +82,4 @@ const StudentComplaintBody = ({ complaints }) => {
 };
 
 export default StudentComplaintBody;
+

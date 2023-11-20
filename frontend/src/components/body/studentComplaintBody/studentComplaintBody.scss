@@ -1,118 +1,127 @@
 // studentComplaintBody.scss
-.complaint-box1 {
-  width: 70%;
-  margin-left: auto;
-  padding: 20px;
-  box-sizing: border-box;
+.complaint-box-student {
+  margin: 2%;
+  width: 60%;
+  max-height: 90vh; /* Set max height to 70% of the viewport height */
+  margin-left: auto; /* Align the complaint box to the right */
 
-  .filter-buttons1 {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 15px;
+  hr {
+    width: 100%;
+    margin: 10px 0; /* Increased margin with horizontal rule */
+    border: 2px solid black; /* Increased border thickness */
+  }
+
+  .filter-buttons-student {
+    margin-bottom: 10px;
 
     button {
+      margin-right: 10px;
       padding: 8px 12px;
-      background-color: #3498db;
-      color: #fff;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-size: 14px;
 
       &:hover {
-        background-color: #2980b9;
+        opacity: 0.7;
       }
+    }
+
+    .all-btn {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .unsolved-btn {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .solved-btn {
+      background-color: #28a745; /* Dark green for solved button */
+      color: #fff;
     }
   }
 
-  .search-bar1 {
-    margin-bottom: 15px;
+  .search-bar-student {
+    margin-bottom: 10px;
 
     input {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       box-sizing: border-box;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 16px;
     }
   }
 
-  .complaint-list1 {
-    list-style: none;
+  .complaint-list-student {
+    list-style-type: none;
     padding: 0;
-    margin: 0;
-    max-height: 500px;
-    overflow-y: auto;
+    max-height: 500px; /* Set your desired max height */
+    overflow-y: auto; /* Add scrollbars when content exceeds the max height */
 
-    .complaint-token1 {
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin-bottom: 15px;
-      transition: background-color 0.3s;
+    .complaint-token-student {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-      &:hover {
-        background-color: #f5f5f5;
+      &.solved-student {
+        background-color: #d5edd5; /* Light green for solved complaints */
       }
 
-      &.solved1 {
-        background-color: #dff0d8;
+      &.unsolved-student {
+        background-color: #eacece; /* Light pink for unsolved complaints */
       }
 
-      &.unsolved1 {
-        background-color: #f2dede;
-      }
+      .complaint-details-student {
+        flex: 1;
+        width: 70%; /* Adjusted width for description */
 
-      .complaint-details1 {
         h3 {
-          margin-top: 0;
+          margin-bottom: 5px;
           font-size: 18px;
         }
 
-        p {
-          margin: 5px 0;
-          font-size: 16px;
+        .description {
+          width: 100%; /* Full width for the description */
+          font-size: 16px; /* Increase the font size for the description */
+          margin-bottom: 10px;
+          word-wrap: break-word; /* Allow long words to break and wrap */
+        }
+
+        .complaint-image {
+          width: 30%; /* Adjusted width for the image */
+          max-height: 100%;
+          height: auto;
+          margin-bottom: 10px;
         }
       }
 
-      div {
+      .complaint-actions-student {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-      }
 
-      button {
-        padding: 8px;
-        cursor: pointer;
-        background-color: transparent;
-        border: none;
-        font-size: 16px;
+        button {
+          cursor: pointer;
+          padding: 8px 12px;
+          margin-left: 10px;
+          border: none;
+          border-radius: 5px;
+          font-size: 14px;
 
-        &:first-child {
-          margin-right: 10px;
+          &:hover {
+            opacity: 0.7;
+          }
         }
-      }
-
-      .upvote-btn {
-        color: #2ecc71;
-      }
-
-      .downvote-btn {
-        color: #e74c3c;
       }
     }
   }
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .complaint-box-student {
     width: 100%;
-    margin-right: 0;
-
-    .filter-buttons1 {
-      flex-direction: column;
-
-      button {
-        margin-bottom: 10px;
-      }
-    }
   }
 }
