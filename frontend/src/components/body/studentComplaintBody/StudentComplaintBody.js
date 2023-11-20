@@ -19,7 +19,7 @@ const ComplaintBody = ({ complaints }) => {
 
     // Apply search filter
     const regex = new RegExp(searchTerm, 'i');
-    setFilteredComplaints(filteredList.filter((complaint) => regex.test(complaint.studentName)));
+    setFilteredComplaints(filteredList.filter((complaint) => regex.test(complaint.name)));
     setFilterStatus(status); // Update the current filter status
   };
 
@@ -65,11 +65,11 @@ const ComplaintBody = ({ complaints }) => {
 
       <ul className="complaint-list1">
         {filteredComplaints.map((complaint) => (
-          <li key={complaint.id} className={`complaint-token1 ${complaint.solved ? 'solved1' : 'unsolved1'}`}>
+          <li key={complaint.complaintid} className={`complaint-token1 ${complaint.status ? 'solved1' : 'unsolved1'}`}>
             <div className="complaint-details1">
               <h3>{complaint.title}</h3>
-              <p>{complaint.text}</p>
-              <p>Student: {complaint.studentName}</p>
+              <p>{complaint.description}</p>
+              <p>Student: {complaint.name + '('+complaint.reg_no+')'}</p>
               <p>Upvotes: {complaint.upvotes}</p>
               <p>Downvotes: {complaint.downvotes}</p>
             </div>

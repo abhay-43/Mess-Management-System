@@ -134,6 +134,19 @@ app.post('/complaint', upload.single('image'),  async function (req, res) {
   }
 });
 
+//route to get complaint data 
+app.post('/complaintData',  async function (req, res) {
+  try{
+    const {hostel} = req.body;
+    // const data = await getComplaint(hostel);
+    const data = await getComplaint('Tandon');
+    console.log(data);
+    res.send(data);
+  }catch(err){
+    console.log(err);
+  }
+});
+
 //route to handle logout
 app.get('/logout', async  function (req, res) {
   try{
