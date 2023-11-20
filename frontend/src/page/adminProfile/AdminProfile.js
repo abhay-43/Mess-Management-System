@@ -23,6 +23,25 @@ const AdminProfile = () => {
   const [name, setName] = useState('');
   const [responsibility, setResponsibility] = useState('');
   const [hostel, setHostel] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('');
+  
+  const handleImageUpload = (e) => {
+    const uploadedImage = e.target.files[0];
+  
+    // Check if an image was selected
+    if (uploadedImage) {
+      // Use FileReader to read the selected image as a data URL
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        const newImageUrl = reader.result;
+        setModalImage(newImageUrl);
+      };
+  
+      reader.readAsDataURL(uploadedImage);
+    }
+  };
 
   const toggleHamburger = (e) => {
     e.preventDefault();
@@ -72,6 +91,36 @@ const AdminProfile = () => {
     setOpenAccountantProfile(false);
     setOpenUpdateAccountant(!openUpdateAccountant);
   };
+  const openModal = async() => {
+    setModalOpen(true);
+   // setModalImage(imageUrl);
+   const data = {
+    hostel : hostel
+  }
+  try{
+    const response = await fetch("http://localhost:5005/menu",{
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(data)
+  });
+  const responseData = await response.json();
+  setModalImage(responseData.link);
+}catch(err){
+  console.log(err);
+}
+};
+
+  const closeModal = () => {
+     setModalOpen(false);
+  };
+  // Inside your component function
+const handleUploadButtonClick = () => {
+  // Add logic here to handle the image upload
+  console.log('Upload button clicked. Implement your upload logic here.');
+};
 
   // const complaints = [
   //   { id: 1, title: 'Issue 1', text: 'Description of Issue 1ggggggggggggggggggggggggggggggggggggggggggg', studentName: 'Aamir', solved: true },
@@ -162,8 +211,11 @@ const AdminProfile = () => {
             <h2><b>Mess Management_@MNNIT</b></h2>
           </div>
           <ul className={openHamburger ? "nav-items active" : "nav-items"}>
+          
             <li id='pfp1' className='link' onClick={toggleProfile}>Profile</li>
+           
             <div className="profile-popup-container">
+            
               <li className='accountant_details' onClick={toggleAccountantProfile}>Accountant</li>
               {openAccountantProfile && (
                 <div className="profile-popup">
@@ -179,6 +231,7 @@ const AdminProfile = () => {
                 </div>
               )}
             </div>
+            <li className='messMenu' onClick={openModal}>Mess Menu</li>
             <li className='link'>Contact</li>
             <li className='complaint-box link' onClick={toggleAddStudent}>Add Student</li>
             {openAddStudent && <AddStudentForm />}
@@ -213,6 +266,34 @@ const AdminProfile = () => {
         <SearchQueries hostel={hostel} />
         <AdminComplaintBody complaints={complaints} />
       </div>
+      {/* {modalOpen && (
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content">
+            <img src={modalImage} alt="Complaint Image" className="modal-image" />
+          </div>
+        </div>
+      )} */}
+      {modalOpen && (
+  <div className="modal" onClick={closeModal}>
+    <div className="modal-content">
+      <img src={modalImage} alt="Complaint Image" className="modal-image" />
+
+      <div className="image-controls">
+        <label htmlFor="uploadImage">Upload Image:</label>
+        <input
+          type="file"
+          id="uploadImage"
+          accept="image/*"
+          onChange={(e) => handleImageUpload(e)}
+        />
+
+        {/* Button to trigger the image upload */}
+        <button onClick={handleUploadButtonClick}>Upload</button>
+      </div>
+    </div>
+  </div>
+)}
+
       <Footer />
     </div>
   );

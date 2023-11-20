@@ -1,6 +1,6 @@
 // searchStudent.scss
 .search-queries {
-  width: 400px; /* Set the width to 30% */
+  width: 28%; /* Set the width to 30% */
   max-height: 90vh; /* Set max height to 70% of the viewport height */
   overflow-y: auto;
   border: 1px solid #ddd;
@@ -58,7 +58,7 @@
 
   @media only screen and (max-width: 600px) {
     .card-container {
-      grid-template-columns: 1fr;
+     width: 100%;
     }
   }
 }
