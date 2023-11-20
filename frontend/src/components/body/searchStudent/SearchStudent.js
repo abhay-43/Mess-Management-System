@@ -1,13 +1,12 @@
+// SearchQueries.js
 import React, { useState, useEffect } from 'react';
 import './searchStudent.scss';
 import { images } from '../../../images';
 
- 
 const SearchQueries = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [studentsData, setStudentsData] = useState([]);
-  
-  
+
   const filteredData = studentsData.filter((student) =>
     Object.values(student).some(
       (value) =>
@@ -16,47 +15,47 @@ const SearchQueries = (props) => {
     )
   );
 
-  const delStudents = async(regNo)=>{
-    if(window.confirm(`Do you want to remove student with reg.no. ${regNo}?`)){
+  const delStudents = async (regNo) => {
+    if (window.confirm(`Do you want to remove student with reg.no. ${regNo}?`)) {
       try {
         const data = {
-          regNo : regNo
-        }
+          regNo: regNo,
+        };
         const response = await fetch("http://localhost:5005/delStudents", {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           credentials: 'include',
-          body : JSON.stringify(data)
+          body: JSON.stringify(data),
         });
         const responseData = await response.json();
-        if (responseData.success){
-          alert(`Student with reg.no. ${regNo} removed successfully!`)
-        }else{
-          alert(`Error Occured in DB, Data doesn't removed!`)
+        if (responseData.success) {
+          alert(`Student with reg.no. ${regNo} removed successfully!`);
+        } else {
+          alert(`Error Occurred in DB, Data doesn't removed!`);
         }
         window.location.reload();
       } catch (err) {
-        alert(`Unknown Error Occured...Try again!`)
+        alert(`Unknown Error Occurred...Try again!`);
         console.error(err);
       }
     }
-  }
+  };
 
-  useEffect( () => {
+  useEffect(() => {
     const getAllStudents = async () => {
       try {
         const data = {
-          hostel : props.hostel
-        }
+          hostel: props.hostel,
+        };
         const response = await fetch("http://localhost:5005/hostel", {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           credentials: 'include',
-          body : JSON.stringify(data)
+          body: JSON.stringify(data),
         });
         const responseData = await response.json();
         setStudentsData(responseData);
@@ -64,12 +63,11 @@ const SearchQueries = (props) => {
         console.error(err);
       }
     };
-    const fetchData = async () =>{
+    const fetchData = async () => {
       await getAllStudents();
     };
     fetchData();
-  }, [props.hostel]); 
-  
+  }, [props.hostel]);
 
   return (
     <div className="search-queries">
@@ -84,18 +82,22 @@ const SearchQueries = (props) => {
       <div className="card-container">
         {filteredData.map((student) => (
           <div key={student.reg_no} className="student-card">
-    <div className='reg_delete'>
-        <h3><b>Name:</b> {student.first_name + " " + student.last_name}</h3>
-    </div>
-    <div className='reg_delete'>
-        <h3><b>Reg.No:</b> {student.reg_no}</h3>
-        <img src={images.delete} alt="delete" className="delete-icon" onClick={async() => await delStudents(student.reg_no)}/>
-    </div>
-    <div className='reg_delete'>
-        <h3><b>Responsibility:</b> {student.responsibility}</h3>
-    </div>
-</div>
-
+            <div className='reg_delete'>
+              <h3><b>Name:</b> {student.first_name + " " + student.last_name}</h3>
+            </div>
+            <div className='reg_delete'>
+              <h3><b>Reg.No:</b> {student.reg_no}</h3>
+              <img
+                src={images.delete}
+                alt="delete"
+                className="delete-icon"
+                onClick={async () => await delStudents(student.reg_no)}
+              />
+            </div>
+            <div className='reg_delete'>
+              <h3><b>Responsibility:</b> {student.responsibility}</h3>
+            </div>
+          </div>
         ))}
       </div>
     </div>

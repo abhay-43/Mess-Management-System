@@ -1,69 +1,64 @@
-
-
+// searchStudent.scss
 .search-queries {
-    width: 400px; /* Adjust the width as needed */
-    max-height: 500px; /* Adjust the height as needed */
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin: 20px;
-    padding: 20px;
+  width: 400px; /* Set the width to 30% */
+  max-height: 90vh; /* Set max height to 70% of the viewport height */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 2%;
+  padding: 20px;
 
-  
-    .search-bar {
-      margin-bottom: 15px;
-  
-      input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 14px;
-      }
+  .search-bar {
+    margin-bottom: 15px;
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
     }
-  
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 15px;
-  
-      .student-card {
-        background-color: #fff;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+  }
 
-        .reg_delete {
-          display: flex;
-          align-items: center; /* Align items vertically in the same line */
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+
+    .student-card {
+      background-color: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      .reg_delete {
+        display: flex;
+        align-items: center;
       }
 
       .delete-icon {
-          width: 24px;
-          height: 24px;
-          margin-left: 160px; /* Add margin to separate the delete icon from registration number */
-          cursor: pointer; /* Add this if the delete icon is clickable */
+        width: 24px;
+        height: 24px;
+        margin-left: 160px;
+        cursor: pointer;
       }
 
-        h3 {
-          font-size: 16px;
-          margin-bottom: 8px;
-        }
-  
-        p {
-          font-size: 14px;
-          margin-bottom: 5px;
-        }
+      h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
       }
-    }
 
-    @media only screen and (max-width: 600px) {
-      .card-container {
-          grid-template-columns: 1fr; /* Change to a single column on smaller screens */
+      p {
+        font-size: 14px;
+        margin-bottom: 5px;
       }
     }
-
   }
-  
+
+  @media only screen and (max-width: 600px) {
+    .card-container {
+      grid-template-columns: 1fr;
+    }
+  }
+}

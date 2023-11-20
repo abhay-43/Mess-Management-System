@@ -1,8 +1,9 @@
-// ComplaintBody.js
+// StudentComplaintBody.js
 import React, { useState, useEffect } from 'react';
 import './studentComplaintBody.scss';
+import { images } from '../../../images';
 
-const ComplaintBody = ({ complaints }) => {
+const StudentComplaintBody = ({ complaints }) => {
   const [filteredComplaints, setFilteredComplaints] = useState(complaints);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
@@ -10,7 +11,6 @@ const ComplaintBody = ({ complaints }) => {
   const handleFilter = (status) => {
     let filteredList = complaints;
 
-    // Apply status filter
     if (status === 'solved') {
       filteredList = complaints.filter((complaint) => complaint.solved);
     } else if (status === 'unsolved') {
@@ -23,18 +23,8 @@ const ComplaintBody = ({ complaints }) => {
     setFilterStatus(status); // Update the current filter status
   };
 
-  const handleUpvote = (id) => {
-    const updatedComplaints = complaints.map((complaint) =>
-      complaint.id === id ? { ...complaint, upvotes: complaint.upvotes + 1 } : complaint
-    );
-    handleFilter(filterStatus); // Reapply the filter after upvoting
-  };
-
-  const handleDownvote = (id) => {
-    const updatedComplaints = complaints.map((complaint) =>
-      complaint.id === id ? { ...complaint, downvotes: complaint.downvotes + 1 } : complaint
-    );
-    handleFilter(filterStatus); // Reapply the filter after downvoting
+  const toggleStatus = (id) => {
+    // Toggle status logic here
   };
 
   useEffect(() => {
@@ -47,23 +37,29 @@ const ComplaintBody = ({ complaints }) => {
   }, [searchTerm, filterStatus]);
 
   return (
-    <div className="complaint-box1">
-      <div className="filter-buttons1">
-        <button onClick={() => handleFilter('all')}>All</button>
-        <button onClick={() => handleFilter('solved')}>Solved</button>
-        <button onClick={() => handleFilter('unsolved')}>Unsolved</button>
+    <div className="complaint-box-student">
+      <div className="filter-buttons-student">
+        <button onClick={() => handleFilter('all')} className="all-btn">
+          All
+        </button>
+        <button onClick={() => handleFilter('unsolved')} className="unsolved-btn">
+          Unsolved
+        </button>
+        <button onClick={() => handleFilter('solved')} className="solved-btn">
+          Solved
+        </button>
       </div>
 
-      <div className="search-bar1">
+      <div className="search-bar-student">
         <input
           type="text"
-          placeholder="Search by student name"
+          placeholder="Search by student name or registration number"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
-      <ul className="complaint-list1">
+      <ul className="complaint-list-student">
         {filteredComplaints.map((complaint) => (
           <li key={complaint.complaintid} className={`complaint-token1 ${complaint.status ? 'solved1' : 'unsolved1'}`}>
             <div className="complaint-details1">
@@ -73,9 +69,10 @@ const ComplaintBody = ({ complaints }) => {
               <p>Upvotes: {complaint.upvotes}</p>
               <p>Downvotes: {complaint.downvotes}</p>
             </div>
-            <div>
-              <button onClick={() => handleUpvote(complaint.id)}>Upvote</button>
-              <button onClick={() => handleDownvote(complaint.id)}>Downvote</button>
+            <div className="complaint-actions-student">
+              {/* Upvote and downvote buttons */}
+              <button className="upvote-btn">&#9650;</button>
+              <button className="downvote-btn">&#9660;</button>
             </div>
           </li>
         ))}
@@ -84,4 +81,5 @@ const ComplaintBody = ({ complaints }) => {
   );
 };
 
-export default ComplaintBody;
+export default StudentComplaintBody;
+
