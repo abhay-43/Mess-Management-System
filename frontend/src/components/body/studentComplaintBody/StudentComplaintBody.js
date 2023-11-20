@@ -1,4 +1,3 @@
-// StudentComplaintBody.js
 import React, { useState, useEffect } from 'react';
 import './studentComplaintBody.scss';
 import { images } from '../../../images';
@@ -12,14 +11,14 @@ const StudentComplaintBody = ({ complaints }) => {
     let filteredList = complaints;
 
     if (status === 'solved') {
-      filteredList = complaints.filter((complaint) => complaint.solved);
+      filteredList = complaints.filter((complaint) => complaint.status);
     } else if (status === 'unsolved') {
-      filteredList = complaints.filter((complaint) => !complaint.solved);
+      filteredList = complaints.filter((complaint) => !complaint.status);
     }
 
     // Apply search filter
     const regex = new RegExp(searchTerm, 'i');
-    setFilteredComplaints(filteredList.filter((complaint) => regex.test(complaint.name)));
+    setFilteredComplaints(filteredList.filter((complaint) => regex.test(complaint.name) || regex.test(complaint.reg_no)));
     setFilterStatus(status); // Update the current filter status
   };
 
@@ -61,13 +60,13 @@ const StudentComplaintBody = ({ complaints }) => {
 
       <ul className="complaint-list-student">
         {filteredComplaints.map((complaint) => (
-          <li key={complaint.complaintid} className={`complaint-token1 ${complaint.status ? 'solved1' : 'unsolved1'}`}>
-            <div className="complaint-details1">
-              <h3>{complaint.title}</h3>
-              <p>{complaint.description}</p>
-              <p>Student: {complaint.name + '('+complaint.reg_no+')'}</p>
-              <p>Upvotes: {complaint.upvotes}</p>
-              <p>Downvotes: {complaint.downvotes}</p>
+          <li key={complaint.complaintid} className={`complaint-token-student ${complaint.status ? 'solved-student' : 'unsolved-student'}`}>
+            <div className="complaint-details-student">
+              <h3><b>Complaint ID : </b>{complaint.complaintid}</h3><hr />
+              <p className="description"><b>Description : </b>{complaint.description}</p><hr />
+              {images.intro_mobile && <img src={complaint.imglink} alt="Complaint Image" className="complaint-image" />}<hr />
+              <p>Student: <b>{complaint.name}</b></p>
+              <p>Registration Number: <b>{complaint.reg_no}</b></p>
             </div>
             <div className="complaint-actions-student">
               {/* Upvote and downvote buttons */}
@@ -82,4 +81,3 @@ const StudentComplaintBody = ({ complaints }) => {
 };
 
 export default StudentComplaintBody;
-
