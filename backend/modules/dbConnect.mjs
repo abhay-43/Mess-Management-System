@@ -13,6 +13,13 @@ async function connectDB() {
     try {
       await client.connect();
       console.log("DB is connected!");
+      const select = `USE mms;`;
+      try {
+        const result = await client.query(select);
+        console.log("Database mms selected !");
+      } catch (err) {
+        console.error(err);
+      } 
     } catch (err) {
       console.error(err);
     }

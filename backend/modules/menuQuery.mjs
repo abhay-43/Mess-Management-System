@@ -4,14 +4,6 @@ import { client } from "./dbConnect.mjs";
 
   async function insertMenu(hostel, imgLink) {
 
-    const select = `USE mms;`;
-    try {
-      const result = await client.query(select);
-      console.log("Database mms selected !");
-    } catch (err) {
-      console.error(err);
-    } 
-  
     const query = `
       INSERT INTO menu (hostel, img) VALUES ($1, $2)`;
     try {
@@ -25,14 +17,6 @@ import { client } from "./dbConnect.mjs";
 
   async function changeMenu(hostel, imgLink) {
 
-    const select = `USE mms;`;
-    try {
-      const result = await client.query(select);
-      console.log("Database mms selected !");
-    } catch (err) {
-      console.error(err);
-    } 
-  
     const query = `UPDATE menu SET img = $2 WHERE hostel = $1`;
     try {
       const result = await client.query(query, [hostel,  imgLink]);
@@ -44,14 +28,6 @@ import { client } from "./dbConnect.mjs";
   }
 
   async function fetchMenu(hostel) {
-
-    const select = `USE mms;`;
-    try {
-      const result = await client.query(select);
-      console.log("Database mms selected !");
-    } catch (err) {
-      console.error(err);
-    } 
   
     const query = `SELECT img FROM menu WHERE hostel = $1`;
     try {

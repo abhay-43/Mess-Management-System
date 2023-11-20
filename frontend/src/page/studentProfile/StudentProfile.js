@@ -70,7 +70,7 @@ const Profile = () => {
       await getComplaintData();
     };
     fetchData();
-  }, []); // The empty dependency array ensures that this effect runs only once, similar to componentDidMount
+  }, [hostelName]); // The empty dependency array ensures that this effect runs only once, similar to componentDidMount
 
   return (
     <div>

@@ -5,14 +5,6 @@ const salt = bcrypt.genSaltSync(10);
 //function for inserting student data from database
 async function insertAD(Email, First_name, Last_name, Hostel, Password, responsibility) {
 
-    const select = `USE mms;`;
-    try {
-      const result = await client.query(select);
-      console.log("Database mms selected !");
-    } catch (err) {
-      console.error(err);
-    } 
-  
     const query = `
       INSERT INTO admins (Email, First_name, Last_name, Hostel, Password, responsibility)
       VALUES ($1, $2, $3, $4, $5, $6)
@@ -29,14 +21,6 @@ async function insertAD(Email, First_name, Last_name, Hostel, Password, responsi
   //function for deleting student data from database
   async function deleteAD(Email) {
   
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
-    
       const query = `DELETE FROM admins WHERE email = $1 `;
   
       try {
@@ -51,14 +35,6 @@ async function insertAD(Email, First_name, Last_name, Hostel, Password, responsi
     //function for fetching admin data from database
     async function fetchAAD(Email) {
   
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
-    
       const query = `SELECT email, first_name, last_name, hostel, responsibility FROM admins WHERE email = $1 `;
   
       try {
@@ -80,14 +56,6 @@ async function insertAD(Email, First_name, Last_name, Hostel, Password, responsi
     //function for fetching admin data from database with parameter
     async function fetchAD(Parameter, Email) {
   
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
-    
       const query = `SELECT ${Parameter} FROM admins WHERE email = $1 `;
   
       try {
@@ -101,14 +69,6 @@ async function insertAD(Email, First_name, Last_name, Hostel, Password, responsi
     //function for updating admin password into database
     async function changeAP(password, Email) {
   
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
-    
       const query = `UPDATE admins SET password = $1 WHERE email = $2`;
   
       try {

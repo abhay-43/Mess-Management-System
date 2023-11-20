@@ -6,14 +6,6 @@ const salt = bcrypt.genSaltSync(10);
 //function for inserting student data from database
 async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, responsibility) {
 
-    const select = `USE mms;`;
-    try {
-      const result = await client.query(select);
-      console.log("Database mms selected !");
-    } catch (err) {
-      console.error(err);
-    } 
-  
     const query = `
       INSERT INTO students (Reg_no, First_name, Last_name, Hostel, Password, responsibility)
       VALUES ($1, $2, $3, $4, $5, $6)
@@ -31,14 +23,6 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
   //function for deleting student data from database
   async function deleteSD(Reg_no) {
   
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
-    
       const query = `DELETE FROM students WHERE Reg_no = $1 `;
   
       try {
@@ -51,14 +35,6 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
 
     //function for fetching student data from database
     async function fetchSAD(Reg_no) {
-  
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
     
       const query = `SELECT reg_no, first_name, last_name, hostel, responsibility FROM students WHERE Reg_no = $1 `;
   
@@ -79,15 +55,7 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
   
     //function for fetching student data from database with parameter
     async function fetchSD(Parameter, Reg_no) {
-  
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
-    
+ 
       const query = `SELECT ${Parameter} FROM students WHERE Reg_no = $1 `;
   
       try {
@@ -100,14 +68,6 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
 
     //function for updating student password into database
     async function changeSP(password, Reg_no) {
-  
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
     
       const query = `UPDATE students SET password = $1 WHERE Reg_no = $2`;
   
@@ -123,14 +83,6 @@ async function insertSD(Reg_no, First_name, Last_name, Hostel, Password, respons
     //get all student details from hostel
     async function getAllStudents(hostel) {
   
-      const select = `USE mms;`;
-      try {
-        const result = await client.query(select);
-        console.log("Database mms selected !");
-      } catch (err) {
-        console.error(err);
-      } 
-    
       const query = `SELECT reg_no, first_name, last_name, responsibility FROM students WHERE hostel = $1 `;
   
       try {

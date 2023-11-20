@@ -123,9 +123,12 @@ app.post('/verifyOTP', async  function (req, res) {
 //route to submit complaint by students
 app.post('/complaint', upload.single('image'),  async function (req, res) {
   try{
-    const image = req.file.buffer;
+    let link = null;
+    if(req.file){
+      const image = req.file.buffer;
+      link = await uploadImg(image);
+    }
     const {description, name, regNo, hostel} = req.body;
-    const link = await uploadImg(image);
     await insertComplaint(regNo,name,hostel,description,link);
     res.json({success : true});
   }catch(err){
@@ -138,9 +141,7 @@ app.post('/complaint', upload.single('image'),  async function (req, res) {
 app.post('/complaintData',  async function (req, res) {
   try{
     const {hostel} = req.body;
-    // const data = await getComplaint(hostel);
-    const data = await getComplaint('Tandon');
-    console.log(data);
+    const data = await getComplaint(hostel);
     res.send(data);
   }catch(err){
     console.log(err);
